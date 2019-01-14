@@ -14,7 +14,7 @@ import android.widget.ImageButton;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 
-public class MainActivity extends AppCompatActivity {
+public class ProfileActivity extends AppCompatActivity {
 
     private FirebaseAuth mAuth;
     Boolean authenticated = false;
@@ -32,7 +32,7 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
+        setContentView(R.layout.activity_profile);
 
         mAuth = FirebaseAuth.getInstance();
 
@@ -78,6 +78,7 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 mAuth.signOut();
+                finish();
                 Intent intent = getIntent();
                 finish();
                 startActivity(intent);
@@ -159,3 +160,5 @@ public class MainActivity extends AppCompatActivity {
 
 
 }
+
+
