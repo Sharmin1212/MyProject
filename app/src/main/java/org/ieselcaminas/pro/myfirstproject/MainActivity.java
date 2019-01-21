@@ -16,11 +16,7 @@ import com.google.firebase.auth.FirebaseUser;
 
 public class MainActivity extends AppCompatActivity {
 
-    private FirebaseAuth mAuth;
-    Boolean authenticated = false;
-    boolean mainMenuDown;
-    boolean profileMenuDown;
-    Button buttonMainMenu1;
+    Button buttonMainMenuOrders;
     Button buttonMainMenu2;
     Button buttonMainMenu3;
     ConstraintLayout constraintLayoutMainMenu;
@@ -34,13 +30,13 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        mAuth = FirebaseAuth.getInstance();
+        //mAuth = FirebaseAuth.getInstance();
 
         android.support.v7.widget.Toolbar toolbar = findViewById(R.id.toolbar);
 
         toolbar.setNavigationIcon(R.drawable.ic_search);
 
-        buttonMainMenu1 = findViewById(R.id.buttonMenu1);
+        buttonMainMenuOrders = findViewById(R.id.buttonMenuOrders);
         buttonProfile = findViewById(R.id.buttonProfile);
         buttonLogOut = findViewById(R.id.buttonLogOut);
         constraintLayoutMainMenu = findViewById(R.id.ConstraintLayoutMenu);
@@ -50,8 +46,9 @@ public class MainActivity extends AppCompatActivity {
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayShowTitleEnabled(false);
 
-        mainMenuDown = false;
-        profileMenuDown = false;
+        Singleton.sharedInstance().setAuthenticated(false);
+        Singleton.sharedInstance().setMainMenuDown(false);
+        Singleton.sharedInstance().setProfileMenuDown(false);
 
         //opcion de busqueda
         toolbar.setNavigationOnClickListener(new View.OnClickListener() {
@@ -60,7 +57,7 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-        buttonMainMenu1.setOnClickListener(new View.OnClickListener() {
+        buttonMainMenuOrders.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
             }
@@ -77,7 +74,7 @@ public class MainActivity extends AppCompatActivity {
         buttonLogOut.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                mAuth.signOut();
+                Singleton.sharedInstance().getmAuth().signOut();
                 Intent intent = getIntent();
                 finish();
                 startActivity(intent);
@@ -91,10 +88,10 @@ public class MainActivity extends AppCompatActivity {
     public void onStart() {
         super.onStart();
 
-        FirebaseUser currentUser = mAuth.getCurrentUser();
+        FirebaseUser currentUser = Singleton.sharedInstance().getmAuth().getCurrentUser();
 
         if (currentUser != null) {
-            authenticated = true;
+            Singleton.sharedInstance().setAuthenticated(true);
         }
     }
 
@@ -112,32 +109,36 @@ public class MainActivity extends AppCompatActivity {
         switch (item.getItemId()) {
             case R.id.action_menu:
 
-                if (mainMenuDown) {
-
+                if (Singleton.sharedInstance().isMainMenuDown()) {
                     upAnimation(constraintLayoutMainMenu, 145, 0, 1.0f, 0.0f);
-
-
-                    mainMenuDown = false;
+                    Singleton.sharedInstance().setMainMenuDown(false);
                 } else {
                     downAnimation(constraintLayoutMainMenu, 0, 145, 0.0f, 1.0f);
-                    mainMenuDown = true;
+                    Singleton.sharedInstance().setMainMenuDown(true);
+                }
+
+                if (Singleton.sharedInstance().isProfileMenuDown()) {
+                    upAnimation(constraintLayoutProfileMenu, 145, 0, 1.0f, 0.0f);
+                    Singleton.sharedInstance().setProfileMenuDown(false);
                 }
 
                 return true;
             case R.id.action_user:
-                if (!authenticated) {
+                if (!Singleton.sharedInstance().isAuthenticated()) {
                     Intent i = new Intent(getApplicationContext(), AuthenticationActivity.class);
                     startActivity(i);
                 } else {
-                    if (profileMenuDown) {
-
+                    if (Singleton.sharedInstance().isProfileMenuDown()) {
                         upAnimation(constraintLayoutProfileMenu, 145, 0, 1.0f, 0.0f);
-
-
-                        profileMenuDown = false;
+                        Singleton.sharedInstance().setProfileMenuDown(false);
                     } else {
                         downAnimation(constraintLayoutProfileMenu, 0, 145, 0.0f, 1.0f);
-                        profileMenuDown = true;
+                        Singleton.sharedInstance().setProfileMenuDown(true);
+                    }
+
+                    if (Singleton.sharedInstance().isMainMenuDown()) {
+                        upAnimation(constraintLayoutMainMenu, 145, 0, 1.0f, 0.0f);
+                        Singleton.sharedInstance().setMainMenuDown(false);
                     }
                 }
                 return true;

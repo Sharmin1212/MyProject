@@ -10,4 +10,10 @@
     <string name="signUp">Sign Up</string>
     <string name="login">Login</string>
     <string name="profile">Profile</string>
+    <string name="age">Age</string>
+    <string name="deliveryRating">Delivery Rating</string>
+    <string name="consumerRating">Consumer Rating</string>
+    <string name="realizarPedido">Realizar Pedido</string>
+    <string name="recibirPedido">Recibir Pedido</string>
+    <string name="orders">Orders</string>
 </resources>
