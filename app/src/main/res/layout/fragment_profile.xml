@@ -5,17 +5,17 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/colorPrimary"
-    tools:context=".ProfileActivity">
+    tools:context=".FragmentProfile">
 
     <android.support.v7.widget.CardView
         android:id="@+id/cardViewProfileUser"
         android:layout_width="126dp"
         android:layout_height="30dp"
-        android:layout_marginTop="17dp"
+        android:layout_marginTop="50dp"
         app:cardCornerRadius="5dp"
         app:layout_constraintEnd_toEndOf="@+id/cardViewProfileContent"
         app:layout_constraintStart_toStartOf="@+id/cardViewProfileContent"
-        app:layout_constraintTop_toBottomOf="@+id/imageViewLogo">
+        app:layout_constraintTop_toTopOf="parent">
 
         <TextView
             android:id="@+id/textViewUsername"
@@ -30,7 +30,7 @@
     <android.support.v7.widget.CardView
         android:id="@+id/cardViewProfileContent"
         android:layout_width="175dp"
-        android:layout_height="300dp"
+        android:layout_height="0dp"
         android:layout_marginStart="8dp"
         android:layout_marginTop="24dp"
         android:layout_marginEnd="16dp"
@@ -70,6 +70,29 @@
                 app:layout_constraintTop_toBottomOf="@+id/textViewAge1" />
 
             <TextView
+                android:id="@+id/textViewAge"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
+                android:text="Spain"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/textViewAddress1" />
+
+            <TextView
+                android:id="@+id/textViewAddress1"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="8dp"
+                android:layout_marginEnd="16dp"
+                android:text="@string/address"
+                android:textColor="@color/common_google_signin_btn_text_dark_focused"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.0"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/textViewAge2" />
+
+            <TextView
                 android:id="@+id/textViewDeliveryRating2"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -88,8 +111,9 @@
                 android:text="@string/deliveryRating"
                 android:textColor="@color/common_google_signin_btn_text_dark_focused"
                 app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.0"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/textViewAge2" />
+                app:layout_constraintTop_toBottomOf="@+id/textView2" />
 
             <ImageView
                 android:id="@+id/imageViewDeliveryGood"
@@ -155,10 +179,32 @@
                 android:layout_height="50dp"
                 android:layout_marginStart="8dp"
                 android:layout_marginEnd="16dp"
+                android:layout_marginBottom="16dp"
+                app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toEndOf="@+id/imageViewConsumerGood"
                 app:layout_constraintTop_toTopOf="@+id/imageViewConsumerGood"
                 app:srcCompat="@drawable/bad" />
+
+            <TextView
+                android:id="@+id/textView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Castello"
+                app:layout_constraintEnd_toEndOf="@+id/textViewAddress1"
+                app:layout_constraintTop_toBottomOf="@+id/textViewAddress1" />
+
+            <TextView
+                android:id="@+id/textView2"
+                android:layout_width="wrap_content"
+                android:layout_height="15dp"
+                android:layout_marginStart="16dp"
+                android:layout_marginEnd="16dp"
+                android:text="Rio Navia 2, 4D"
+                android:visibility="invisible"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/textViewAge" />
 
         </android.support.constraint.ConstraintLayout>
     </android.support.v7.widget.CardView>
@@ -201,127 +247,7 @@
         </android.support.constraint.ConstraintLayout>
     </android.support.v7.widget.CardView>
 
-    <android.support.constraint.ConstraintLayout
-        android:id="@+id/ConstraintLayoutMenu"
-        android:layout_width="0dp"
-        android:layout_height="50dp"
-        android:background="@color/colorPrimaryDark"
-        android:visibility="visible"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
-
-        <Button
-            android:id="@+id/buttonMenuOrders"
-            style="@style/Widget.AppCompat.Button.Borderless"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="16dp"
-            android:text="@string/orders"
-            android:textColor="@android:color/white"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="@+id/buttonMenu2" />
-
-        <Button
-            android:id="@+id/buttonMenu2"
-            style="@style/Widget.AppCompat.Button.Borderless"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="44dp"
-            android:layout_marginEnd="44dp"
-            android:text="Menu2"
-            android:textColor="@android:color/white"
-            app:layout_constraintEnd_toStartOf="@+id/buttonMenu3"
-            app:layout_constraintStart_toEndOf="@+id/buttonMenuOrders"
-            app:layout_constraintTop_toTopOf="@id/ConstraintLayoutMenu" />
-
-        <Button
-            android:id="@+id/buttonMenu3"
-            style="@style/Widget.AppCompat.Button.Borderless"
-            android:layout_width="wrap_content"
-            android:layout_height="48dp"
-            android:layout_marginEnd="16dp"
-            android:text="Menu3"
-            android:textColor="@android:color/white"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="@+id/buttonMenu2" />
-    </android.support.constraint.ConstraintLayout>
 
 
-    <android.support.constraint.ConstraintLayout
-        android:id="@+id/ConstraintLayoutProfileMenu"
-        android:layout_width="0dp"
-        android:layout_height="50dp"
-        android:background="@color/colorPrimaryDark"
-        android:visibility="visible"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
-
-        <Button
-            android:id="@+id/buttonProfile"
-            style="@style/Widget.AppCompat.Button.Borderless"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="16dp"
-            android:text="@string/profile"
-            android:textColor="@android:color/white"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="@+id/buttonProfile2" />
-
-        <Button
-            android:id="@+id/buttonProfile2"
-            style="@style/Widget.AppCompat.Button.Borderless"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="44dp"
-            android:layout_marginEnd="44dp"
-            android:text="Menu2"
-            android:textColor="@android:color/white"
-            app:layout_constraintEnd_toStartOf="@+id/buttonLogOut"
-            app:layout_constraintStart_toEndOf="@+id/buttonProfile"
-            app:layout_constraintTop_toTopOf="@id/ConstraintLayoutProfileMenu" />
-
-        <ImageButton
-            android:id="@+id/buttonLogOut"
-            style="@style/Widget.AppCompat.Button.Borderless"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="8dp"
-            android:layout_marginEnd="16dp"
-            android:layout_marginBottom="8dp"
-            android:src="@drawable/exit"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="@+id/buttonProfile2" />
-    </android.support.constraint.ConstraintLayout>
-
-    <android.support.v7.widget.Toolbar
-        android:id="@+id/toolbar"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:background="@color/colorPrimaryDark"
-        android:minHeight="?attr/actionBarSize"
-        android:theme="?attr/actionBarTheme"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
-
-
-    </android.support.v7.widget.Toolbar>
-
-    <ImageView
-        android:id="@+id/imageViewLogo"
-        android:layout_width="100dp"
-        android:layout_height="100dp"
-        android:layout_gravity="center"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="16dp"
-        android:src="@drawable/logo"
-        app:layout_constraintBottom_toBottomOf="@+id/toolbar"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.485"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
 
 </android.support.constraint.ConstraintLayout>

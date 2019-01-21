@@ -16,4 +16,6 @@
     <string name="realizarPedido">Realizar Pedido</string>
     <string name="recibirPedido">Recibir Pedido</string>
     <string name="orders">Orders</string>
+    <string name="address">Address</string>
+    <string name="acceptOrder">Accept Order</string>
 </resources>

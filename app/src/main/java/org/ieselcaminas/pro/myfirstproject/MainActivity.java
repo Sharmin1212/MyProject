@@ -2,6 +2,7 @@ package org.ieselcaminas.pro.myfirstproject;
 
 import android.content.Intent;
 import android.support.constraint.ConstraintLayout;
+import android.support.v4.app.Fragment;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.Menu;
@@ -16,6 +17,8 @@ import com.google.firebase.auth.FirebaseUser;
 
 public class MainActivity extends AppCompatActivity {
 
+    Fragment fragment;
+
     Button buttonMainMenuOrders;
     Button buttonMainMenu2;
     Button buttonMainMenu3;
@@ -24,6 +27,8 @@ public class MainActivity extends AppCompatActivity {
     Button buttonProfile;
     Button buttonProfileMenu2;
     ImageButton buttonLogOut;
+    boolean mainMenuDown;
+    boolean profileMenuDown;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -47,8 +52,9 @@ public class MainActivity extends AppCompatActivity {
         getSupportActionBar().setDisplayShowTitleEnabled(false);
 
         Singleton.sharedInstance().setAuthenticated(false);
-        Singleton.sharedInstance().setMainMenuDown(false);
-        Singleton.sharedInstance().setProfileMenuDown(false);
+        mainMenuDown = false;
+        profileMenuDown = false;
+
 
         //opcion de busqueda
         toolbar.setNavigationOnClickListener(new View.OnClickListener() {
@@ -60,14 +66,18 @@ public class MainActivity extends AppCompatActivity {
         buttonMainMenuOrders.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                fragment = new FragmentOrders();
+                getSupportFragmentManager().beginTransaction().replace(R.id.content_frame, fragment).commit();
+                upAllMenus();
             }
         });
 
         buttonProfile.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent i = new Intent(getApplicationContext(), ProfileActivity.class);
-                startActivity(i);
+                fragment = new FragmentProfile();
+                getSupportFragmentManager().beginTransaction().replace(R.id.content_frame, fragment).commit();
+                upAllMenus();
             }
         });
 
@@ -83,6 +93,7 @@ public class MainActivity extends AppCompatActivity {
             }
         });
     }
+
 
     @Override
     public void onStart() {
@@ -109,17 +120,17 @@ public class MainActivity extends AppCompatActivity {
         switch (item.getItemId()) {
             case R.id.action_menu:
 
-                if (Singleton.sharedInstance().isMainMenuDown()) {
+                if (mainMenuDown) {
                     upAnimation(constraintLayoutMainMenu, 145, 0, 1.0f, 0.0f);
-                    Singleton.sharedInstance().setMainMenuDown(false);
+                    mainMenuDown = false;
                 } else {
                     downAnimation(constraintLayoutMainMenu, 0, 145, 0.0f, 1.0f);
-                    Singleton.sharedInstance().setMainMenuDown(true);
+                    mainMenuDown = true;
                 }
 
-                if (Singleton.sharedInstance().isProfileMenuDown()) {
+                if (profileMenuDown) {
                     upAnimation(constraintLayoutProfileMenu, 145, 0, 1.0f, 0.0f);
-                    Singleton.sharedInstance().setProfileMenuDown(false);
+                    profileMenuDown = false;
                 }
 
                 return true;
@@ -128,17 +139,17 @@ public class MainActivity extends AppCompatActivity {
                     Intent i = new Intent(getApplicationContext(), AuthenticationActivity.class);
                     startActivity(i);
                 } else {
-                    if (Singleton.sharedInstance().isProfileMenuDown()) {
+                    if (profileMenuDown) {
                         upAnimation(constraintLayoutProfileMenu, 145, 0, 1.0f, 0.0f);
-                        Singleton.sharedInstance().setProfileMenuDown(false);
+                        profileMenuDown = false;
                     } else {
                         downAnimation(constraintLayoutProfileMenu, 0, 145, 0.0f, 1.0f);
-                        Singleton.sharedInstance().setProfileMenuDown(true);
+                        profileMenuDown = true;
                     }
 
-                    if (Singleton.sharedInstance().isMainMenuDown()) {
+                    if (mainMenuDown) {
                         upAnimation(constraintLayoutMainMenu, 145, 0, 1.0f, 0.0f);
-                        Singleton.sharedInstance().setMainMenuDown(false);
+                        mainMenuDown = false;
                     }
                 }
                 return true;
@@ -158,5 +169,15 @@ public class MainActivity extends AppCompatActivity {
         downAnimation(constraint, i2, i3, v, v2);
     }
 
+
+    private void upAllMenus() {
+        if (mainMenuDown) {
+            upAnimation(constraintLayoutMainMenu, 145, 0, 1.0f, 0.0f);
+            mainMenuDown = false;
+        } else if (profileMenuDown) {
+            upAnimation(constraintLayoutProfileMenu, 145, 0, 1.0f, 0.0f);
+            profileMenuDown = false;
+        }
+    }
 
 }
