@@ -12,6 +12,9 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+
 public class FragmentOrders extends Fragment {
 
     FloatingActionButton fab;
@@ -52,6 +55,13 @@ public class FragmentOrders extends Fragment {
                         if (editTextTitle.length() == 0 || editTextDescription.length() == 0) {
                             Toast.makeText(thisView.getContext(), "Please put some information", Toast.LENGTH_SHORT).show();
                         } else {
+
+                            //Write to my database
+                            FirebaseDatabase database = FirebaseDatabase.getInstance();
+                            DatabaseReference myRef = database.getReference("message");
+
+                            myRef.setValue("Hello, World!");
+
 
                             dialogBuilder.dismiss();
                         }
