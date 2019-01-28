@@ -18,4 +18,8 @@
     <string name="orders">Orders</string>
     <string name="address">Address</string>
     <string name="acceptOrder">Accept Order</string>
+    <string name="newOrder">Add new order</string>
+    <string name="title">Title</string>
+    <string name="user">User</string>
+    <string name="productDescr">Product Description</string>
 </resources>
