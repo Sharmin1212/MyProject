@@ -78,7 +78,7 @@ public class AuthenticationActivity extends AppCompatActivity {
                                         if (user.isEmailVerified()) {
                                             finish();
                                         } else {
-                                            Toast.makeText(getApplicationContext(), "Please verify your email.", Toast.LENGTH_SHORT).show();
+                                            Toast.makeText(getApplicationContext(), "Please verify your user.", Toast.LENGTH_SHORT).show();
                                         }
 
 

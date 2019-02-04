@@ -7,6 +7,9 @@ public class OrderItem {
     private String user;
     private String descr;
 
+    public OrderItem() {
+
+    }
 
     public OrderItem(int img, String title, String user, String descr) {
         this.img = img;
@@ -14,6 +17,7 @@ public class OrderItem {
         this.user = user;
         this.descr = descr;
     }
+
 
     public void setImage(int img) {
         this.img = img;

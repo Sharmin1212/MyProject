@@ -5,6 +5,7 @@ import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.Fragment;
 import android.support.v7.app.AlertDialog;
 import android.os.Bundle;
+import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -21,7 +22,7 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
-import java.util.List;
+import java.util.Objects;
 
 public class FragmentOrders extends Fragment {
 
@@ -31,20 +32,46 @@ public class FragmentOrders extends Fragment {
     EditText editTextTitle;
     EditText editTextDescription;
     ImageView imageViewAddProduct;
-    private List<OrderItem> orderList = new ArrayList<>();
-    private OrderAdapter orderAdapter;
+    OrderAdapter adapter;
+
     RecyclerView recView;
+    ArrayList<OrderItem> list;
+    DatabaseReference reference;
 
     public FragmentOrders() {
 
     }
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+    public View onCreateView(LayoutInflater inflater, final ViewGroup container, Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         final View thisView = inflater.inflate(R.layout.fragment_orders, container, false);
 
         fab = thisView.findViewById(R.id.fab);
+        recView = thisView.findViewById(R.id.recView);
+
+
+        recView.setLayoutManager(new LinearLayoutManager(thisView.getContext()));
+
+
+        reference = FirebaseDatabase.getInstance().getReference().child("orders");
+        reference.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                list = new ArrayList<>();
+                for (DataSnapshot dataSnapshot1 : dataSnapshot.getChildren()) {
+                    OrderItem p = dataSnapshot1.getValue(OrderItem.class);
+                    list.add(p);
+                }
+                adapter = new OrderAdapter(thisView.getContext(), list);
+                recView.setAdapter(adapter);
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+                Toast.makeText(thisView.getContext(), "Something is wrong", Toast.LENGTH_SHORT).show();
+            }
+        });
 
 
         fab.setOnClickListener(new View.OnClickListener() {
@@ -62,7 +89,6 @@ public class FragmentOrders extends Fragment {
                 buttonDiaCancel = dialogView.findViewById(R.id.buttonCancel);
                 imageViewAddProduct = dialogView.findViewById(R.id.imageViewAddProduct);
 
-                recView = thisView.findViewById(R.id.recView);
 
                 FirebaseDatabase database = FirebaseDatabase.getInstance();
                 final DatabaseReference myRef = database.getReference("orders");
@@ -71,11 +97,13 @@ public class FragmentOrders extends Fragment {
                     @Override
                     public void onClick(View view) {
                         if (editTextTitle.length() == 0 || editTextDescription.length() == 0) {
-                            Toast.makeText(thisView.getContext(), "Please put some information", Toast.LENGTH_SHORT).show();
+                            Toast.makeText(thisView.getContext(), getString(R.string.putInformation), Toast.LENGTH_SHORT).show();
+                        } else if (!Singleton.sharedInstance().isAuthenticated()) {
+                            Toast.makeText(thisView.getContext(), getString(R.string.logInForOrder), Toast.LENGTH_SHORT).show();
                         } else {
 
                             //Write to my database
-                            OrderItem o = new OrderItem(imageViewAddProduct.getId(), editTextTitle.getText().toString(), Singleton.sharedInstance().getmAuth().getCurrentUser().getEmail().toString(), editTextDescription.getText().toString());
+                            OrderItem o = new OrderItem(imageViewAddProduct.getId(), editTextTitle.getText().toString(), Objects.requireNonNull(Singleton.sharedInstance().getmAuth().getCurrentUser()).getEmail(), editTextDescription.getText().toString());
                             String clau = myRef.push().getKey();
                             myRef.child("item" + clau).setValue(o);
 
@@ -96,25 +124,6 @@ public class FragmentOrders extends Fragment {
                 dialogBuilder.setView(dialogView);
                 dialogBuilder.show();
 
-                myRef.addValueEventListener(new ValueEventListener() {
-                    @Override
-                    public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                        orderList.clear();
-                        for (DataSnapshot dataSnapshot1 : dataSnapshot.getChildren()) {
-                            OrderItem orderItem = dataSnapshot1.getValue(OrderItem.class);
-                            orderList.add(orderItem);
-                        }
-
-                        orderAdapter = new OrderAdapter(thisView.getContext(), orderList);
-                        recView.setAdapter(orderAdapter);
-                        orderAdapter.notifyDataSetChanged();
-                    }
-
-                    @Override
-                    public void onCancelled(@NonNull DatabaseError databaseError) {
-
-                    }
-                });
 
             }
         });

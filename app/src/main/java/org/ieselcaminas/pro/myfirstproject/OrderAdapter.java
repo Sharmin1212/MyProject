@@ -8,48 +8,61 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import java.util.ArrayList;
 import java.util.List;
 
-public class OrderAdapter extends RecyclerView.Adapter<OrderAdapter.ItemViewHolder> {
-    private List<OrderItem> orderList;
-    private Context mContext;
+public class OrderAdapter extends RecyclerView.Adapter<OrderAdapter.MyHolder> {
 
-    @Override
-    public ItemViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.order_item, parent, false);
-        return new ItemViewHolder(view);
-    }
+    Context context;
+    ArrayList<OrderItem> list;
 
-    public OrderAdapter(Context mContext, List<OrderItem> orderList) {
-        this.mContext = mContext;
-        this.orderList = orderList;
+    public OrderAdapter(Context c, ArrayList<OrderItem> l) {
+        context = c;
+        list = l;
+
     }
 
     @Override
-    public void onBindViewHolder(ItemViewHolder holder, int position) {
-        OrderItem orderItem = orderList.get(position);
-        holder.mTvTitle.setText(orderItem.getTitle());
-        holder.mTvUser.setText(orderItem.getTitle());
-        holder.mTvDescr.setText(orderItem.getDescr());
-        holder.mTvImage.setImageResource(orderItem.getImage());
+    public MyHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+        return new MyHolder(LayoutInflater.from(context).inflate(R.layout.order_item, parent, false));
+    }
+
+    @Override
+    public void onBindViewHolder(MyHolder holder, int position) {
+        OrderItem myList = list.get(position);
+        holder.title.setText(myList.getTitle());
+        holder.user.setText(myList.getUser());
+        holder.descr.setText(myList.getDescr());
+//        holder.img.setImageResource(myList.getImage());
     }
 
     @Override
     public int getItemCount() {
-        return orderList.size();
+        /*int arr = 0;
+        try {
+            if (list.size() == 0) {
+                arr = 0;
+            } else {
+                arr = list.size();
+            }
+        } catch (Exception e) {
+        }*/
+        return list.size();
     }
 
-    public class ItemViewHolder extends RecyclerView.ViewHolder {
-        TextView mTvTitle, mTvUser, mTvDescr;
-        ImageView mTvImage;
+    class MyHolder extends RecyclerView.ViewHolder {
+        TextView title, user, descr;
+        ImageView img;
 
-        public ItemViewHolder(View itemView) {
+
+        public MyHolder(View itemView) {
             super(itemView);
-            mTvUser = itemView.findViewById(R.id.textViewUser);
-            mTvTitle = itemView.findViewById(R.id.textViewTitle);
-            mTvDescr = itemView.findViewById(R.id.textViewDescr);
-            mTvImage = itemView.findViewById(R.id.imageViewProduct);
+            title = itemView.findViewById(R.id.textViewTitle);
+            user = itemView.findViewById(R.id.textViewUser);
+            descr = itemView.findViewById(R.id.textViewDescr);
+            img = itemView.findViewById(R.id.imageViewProduct);
 
         }
     }
+
 }

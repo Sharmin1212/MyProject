@@ -22,4 +22,6 @@
     <string name="title">Title</string>
     <string name="user">User</string>
     <string name="productDescr">Product Description</string>
+    <string name="putInformation">Please put some information</string>
+    <string name="logInForOrder">Please log in to place an order</string>
 </resources>
