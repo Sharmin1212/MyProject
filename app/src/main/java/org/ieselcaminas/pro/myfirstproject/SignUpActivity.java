@@ -74,7 +74,7 @@ public class SignUpActivity extends AppCompatActivity {
                                 user.updateProfile(profileUpdates);
 
 
-                                User userDB = new User(
+                               /* User userDB = new User(
                                         username,
                                         email
                                 );
@@ -82,7 +82,7 @@ public class SignUpActivity extends AppCompatActivity {
 
                                 FirebaseDatabase.getInstance().getReference("users")
                                         .child(FirebaseAuth.getInstance().getCurrentUser().getUid())
-                                        .setValue(userDB);
+                                        .setValue(userDB);*/
 
 
                                 user.sendEmailVerification().addOnCompleteListener(SignUpActivity.this, new OnCompleteListener() {

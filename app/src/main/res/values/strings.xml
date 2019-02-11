@@ -1,7 +1,7 @@
 <resources>
     <string name="app_name">MyFirstProject</string>
     <string name="action_menu">Menu</string>
-    <string name="action_user">Usuario</string>
+    <string name="action_user">User</string>
     <string name="action_search">Search</string>
     <string name="username">Username</string>
     <string name="email">Email</string>
@@ -13,8 +13,8 @@
     <string name="age">Age</string>
     <string name="deliveryRating">Delivery Rating</string>
     <string name="consumerRating">Consumer Rating</string>
-    <string name="realizarPedido">Realizar Pedido</string>
-    <string name="recibirPedido">Recibir Pedido</string>
+    <string name="makeOrder">Make an order</string>
+    <string name="receiveOrder">Receive Order</string>
     <string name="orders">Orders</string>
     <string name="address">Address</string>
     <string name="acceptOrder">Accept Order</string>

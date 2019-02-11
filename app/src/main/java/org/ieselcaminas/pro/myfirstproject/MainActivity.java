@@ -29,6 +29,7 @@ public class MainActivity extends AppCompatActivity {
     ImageButton buttonLogOut;
     boolean mainMenuDown;
     boolean profileMenuDown;
+    android.support.v7.widget.Toolbar toolbar;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -37,7 +38,7 @@ public class MainActivity extends AppCompatActivity {
 
         //mAuth = FirebaseAuth.getInstance();
 
-        android.support.v7.widget.Toolbar toolbar = findViewById(R.id.toolbar);
+        toolbar = findViewById(R.id.toolbar);
 
         toolbar.setNavigationIcon(R.drawable.ic_search);
 
@@ -121,15 +122,15 @@ public class MainActivity extends AppCompatActivity {
             case R.id.action_menu:
 
                 if (mainMenuDown) {
-                    upAnimation(constraintLayoutMainMenu, 145, 0, 1.0f, 0.0f);
+                    upAnimation(constraintLayoutMainMenu, toolbar.getHeight(), 0, 1.0f, 0.0f);
                     mainMenuDown = false;
                 } else {
-                    downAnimation(constraintLayoutMainMenu, 0, 145, 0.0f, 1.0f);
+                    downAnimation(constraintLayoutMainMenu, 0, toolbar.getHeight(), 0.0f, 1.0f);
                     mainMenuDown = true;
                 }
 
                 if (profileMenuDown) {
-                    upAnimation(constraintLayoutProfileMenu, 145, 0, 1.0f, 0.0f);
+                    upAnimation(constraintLayoutProfileMenu, toolbar.getHeight(), 0, 1.0f, 0.0f);
                     profileMenuDown = false;
                 }
 
@@ -140,15 +141,15 @@ public class MainActivity extends AppCompatActivity {
                     startActivity(i);
                 } else {
                     if (profileMenuDown) {
-                        upAnimation(constraintLayoutProfileMenu, 145, 0, 1.0f, 0.0f);
+                        upAnimation(constraintLayoutProfileMenu, toolbar.getHeight(), 0, 1.0f, 0.0f);
                         profileMenuDown = false;
                     } else {
-                        downAnimation(constraintLayoutProfileMenu, 0, 145, 0.0f, 1.0f);
+                        downAnimation(constraintLayoutProfileMenu, 0, toolbar.getHeight(), 0.0f, 1.0f);
                         profileMenuDown = true;
                     }
 
                     if (mainMenuDown) {
-                        upAnimation(constraintLayoutMainMenu, 145, 0, 1.0f, 0.0f);
+                        upAnimation(constraintLayoutMainMenu, toolbar.getHeight(), 0, 1.0f, 0.0f);
                         mainMenuDown = false;
                     }
                 }
@@ -172,10 +173,10 @@ public class MainActivity extends AppCompatActivity {
 
     private void upAllMenus() {
         if (mainMenuDown) {
-            upAnimation(constraintLayoutMainMenu, 145, 0, 1.0f, 0.0f);
+            upAnimation(constraintLayoutMainMenu, toolbar.getHeight(), 0, 1.0f, 0.0f);
             mainMenuDown = false;
         } else if (profileMenuDown) {
-            upAnimation(constraintLayoutProfileMenu, 145, 0, 1.0f, 0.0f);
+            upAnimation(constraintLayoutProfileMenu, toolbar.getHeight(), 0, 1.0f, 0.0f);
             profileMenuDown = false;
         }
     }
