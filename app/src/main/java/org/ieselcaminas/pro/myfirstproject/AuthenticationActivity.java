@@ -22,6 +22,7 @@ import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.auth.GoogleAuthProvider;
+import com.google.firebase.database.FirebaseDatabase;
 
 public class AuthenticationActivity extends AppCompatActivity {
 
@@ -142,7 +143,39 @@ public class AuthenticationActivity extends AppCompatActivity {
                     public void onComplete(@NonNull Task<AuthResult> task) {
                         if (task.isSuccessful()) {
                             // Sign in success, update UI with the signed-in user's information
+                            boolean isNew = task.getResult().getAdditionalUserInfo().isNewUser();
                             FirebaseUser user = mAuth.getCurrentUser();
+                            if (isNew) {
+                                email = user.getEmail();
+                                String username = user.getDisplayName();
+                                String country = "Country";
+                                String city = "City";
+                                String address = "Street...";
+                                int age = 0;
+                                int deliveryRating = 0;
+                                int consumerRating = 0;
+                                int img = getApplicationContext().getResources().getIdentifier("logo", "drawable", getApplicationContext().getPackageName());
+
+
+                                User userDB = new User(
+                                        username,
+                                        email,
+                                        country,
+                                        city,
+                                        address,
+                                        age,
+                                        deliveryRating,
+                                        consumerRating,
+                                        img
+
+                                );
+
+                                FirebaseDatabase.getInstance().getReference("users")
+                                        .child(FirebaseAuth.getInstance().getCurrentUser().getUid())
+                                        .setValue(userDB);
+
+                            }
+
                             finish();
                         } else {
                             // If sign in fails, display a message to the user.
