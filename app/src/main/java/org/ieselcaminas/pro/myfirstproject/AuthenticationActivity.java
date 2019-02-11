@@ -142,12 +142,10 @@ public class AuthenticationActivity extends AppCompatActivity {
                     public void onComplete(@NonNull Task<AuthResult> task) {
                         if (task.isSuccessful()) {
                             // Sign in success, update UI with the signed-in user's information
-                            Log.d(TAG, "signInWithCredential:success");
                             FirebaseUser user = mAuth.getCurrentUser();
                             finish();
                         } else {
                             // If sign in fails, display a message to the user.
-                            Log.w(TAG, "signInWithCredential:failure", task.getException());
                             Toast.makeText(AuthenticationActivity.this, task.getException().getLocalizedMessage(),
                                     Toast.LENGTH_SHORT).show();
                         }

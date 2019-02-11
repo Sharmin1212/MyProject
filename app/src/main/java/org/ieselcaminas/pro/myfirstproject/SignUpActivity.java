@@ -1,5 +1,6 @@
 package org.ieselcaminas.pro.myfirstproject;
 
+import android.graphics.drawable.Drawable;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -32,6 +33,14 @@ public class SignUpActivity extends AppCompatActivity {
     String pass;
     String confPass;
 
+    String country;
+    String city;
+    String address;
+    int age;
+    int deliveryRating;
+    int consumerRating;
+    int img;
+
     Button buttonSignUp;
 
 
@@ -55,6 +64,16 @@ public class SignUpActivity extends AppCompatActivity {
                 username = editTextUser.getText().toString();
                 pass = editTextPass.getText().toString();
                 confPass = editTextConfPass.getText().toString();
+
+                country = "Country";
+                city = "City";
+                address = "Street...";
+                age = 0;
+                deliveryRating = 0;
+                consumerRating = 0;
+                img = getApplicationContext().getResources().getIdentifier("logo", "drawable", getApplicationContext().getPackageName());
+
+
                 if (email.length() == 0 || username.length() == 0 || pass.length() == 0 || confPass.length() == 0) {
                     Toast.makeText(getApplicationContext(), "You missed some fields...", Toast.LENGTH_LONG).show();
                 } else if (!pass.equals(confPass)) {
@@ -74,15 +93,22 @@ public class SignUpActivity extends AppCompatActivity {
                                 user.updateProfile(profileUpdates);
 
 
-                               /* User userDB = new User(
+                                User userDB = new User(
                                         username,
-                                        email
+                                        email,
+                                        country,
+                                        city,
+                                        address,
+                                        age,
+                                        deliveryRating,
+                                        consumerRating,
+                                        img
                                 );
 
 
                                 FirebaseDatabase.getInstance().getReference("users")
                                         .child(FirebaseAuth.getInstance().getCurrentUser().getUid())
-                                        .setValue(userDB);*/
+                                        .setValue(userDB);
 
 
                                 user.sendEmailVerification().addOnCompleteListener(SignUpActivity.this, new OnCompleteListener() {
