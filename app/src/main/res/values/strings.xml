@@ -26,4 +26,14 @@
     <string name="logInForOrder">Please log in to place an order</string>
     <string name="edit">EDIT</string>
     <string name="save">Save</string>
+    <string name="plans">Plans</string>
+    <string name="myOrders">My Orders</string>
+    <string name="deliverySub">Delivery Subscription</string>
+    <string name="buy">Buy</string>
+    <string name="consumerSub">Consumer Subscription</string>
+    <string name="noAdsSub">No Ads Subscription</string>
+    <string name="deliveryDescr">- No ads\n- Deliver more than 3 orders per day\n\n20$/year</string>
+    <string name="consumerDescr">- No ads\n- Make more than 3 orders per day\n\n20$/year</string>
+    <string name="noAdsDescription">- No ads\n\n5$/year</string>
+    <string name="logInFirst">Log in First</string>
 </resources>

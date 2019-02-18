@@ -9,7 +9,6 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import java.util.ArrayList;
-import java.util.List;
 
 public class OrderAdapter extends RecyclerView.Adapter<OrderAdapter.MyHolder> {
 
@@ -57,9 +56,9 @@ public class OrderAdapter extends RecyclerView.Adapter<OrderAdapter.MyHolder> {
 
         public MyHolder(View itemView) {
             super(itemView);
-            title = itemView.findViewById(R.id.textViewTitle);
+            title = itemView.findViewById(R.id.ConsumerPlan);
             user = itemView.findViewById(R.id.textViewUser);
-            descr = itemView.findViewById(R.id.textViewDescr);
+            descr = itemView.findViewById(R.id.textViewConsumerDescr);
             img = itemView.findViewById(R.id.imageViewProduct);
 
         }

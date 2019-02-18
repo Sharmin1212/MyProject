@@ -12,16 +12,15 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.ImageButton;
 
-import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 
 public class MainActivity extends AppCompatActivity {
 
     Fragment fragment;
 
-    Button buttonMainMenuOrders;
+    Button buttonMenuOrders;
     Button buttonMainMenu2;
-    Button buttonMainMenu3;
+    Button buttonMenuPlans;
     ConstraintLayout constraintLayoutMainMenu;
     ConstraintLayout constraintLayoutProfileMenu;
     Button buttonProfile;
@@ -42,7 +41,8 @@ public class MainActivity extends AppCompatActivity {
 
         toolbar.setNavigationIcon(R.drawable.ic_search);
 
-        buttonMainMenuOrders = findViewById(R.id.buttonMenuOrders);
+        buttonMenuOrders = findViewById(R.id.buttonMenuOrders);
+        buttonMenuPlans = findViewById(R.id.buttonMenuPlans);
         buttonProfile = findViewById(R.id.buttonProfile);
         buttonLogOut = findViewById(R.id.buttonLogOut);
         constraintLayoutMainMenu = findViewById(R.id.ConstraintLayoutMenu);
@@ -64,10 +64,19 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-        buttonMainMenuOrders.setOnClickListener(new View.OnClickListener() {
+        buttonMenuOrders.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 fragment = new FragmentOrders();
+                getSupportFragmentManager().beginTransaction().replace(R.id.content_frame, fragment).commit();
+                upAllMenus();
+            }
+        });
+
+        buttonMenuPlans.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                fragment = new FragmentPlans();
                 getSupportFragmentManager().beginTransaction().replace(R.id.content_frame, fragment).commit();
                 upAllMenus();
             }

@@ -48,17 +48,17 @@
             android:layout_marginEnd="44dp"
             android:text="Menu2"
             android:textColor="@android:color/white"
-            app:layout_constraintEnd_toStartOf="@+id/buttonMenu3"
+            app:layout_constraintEnd_toStartOf="@+id/buttonMenuPlans"
             app:layout_constraintStart_toEndOf="@+id/buttonMenuOrders"
             app:layout_constraintTop_toTopOf="@id/ConstraintLayoutMenu" />
 
         <Button
-            android:id="@+id/buttonMenu3"
+            android:id="@+id/buttonMenuPlans"
             style="@style/Widget.AppCompat.Button.Borderless"
             android:layout_width="wrap_content"
             android:layout_height="48dp"
             android:layout_marginEnd="16dp"
-            android:text="Menu3"
+            android:text="@string/plans"
             android:textColor="@android:color/white"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="@+id/buttonMenu2" />
@@ -84,16 +84,16 @@
             android:text="@string/profile"
             android:textColor="@android:color/white"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="@+id/buttonProfile2" />
+            app:layout_constraintTop_toTopOf="@+id/buttonProfileMyOrders" />
 
         <Button
-            android:id="@+id/buttonProfile2"
+            android:id="@+id/buttonProfileMyOrders"
             style="@style/Widget.AppCompat.Button.Borderless"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="44dp"
             android:layout_marginEnd="44dp"
-            android:text="Menu2"
+            android:text="@string/myOrders"
             android:textColor="@android:color/white"
             app:layout_constraintEnd_toStartOf="@+id/buttonLogOut"
             app:layout_constraintStart_toEndOf="@+id/buttonProfile"
@@ -110,7 +110,7 @@
             android:src="@drawable/exit"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="@+id/buttonProfile2" />
+            app:layout_constraintTop_toTopOf="@+id/buttonProfileMyOrders" />
     </android.support.constraint.ConstraintLayout>
 
     <android.support.v7.widget.Toolbar
