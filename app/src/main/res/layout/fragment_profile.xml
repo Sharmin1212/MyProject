@@ -21,8 +21,8 @@
             android:id="@+id/editTextUsername"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:gravity="center_horizontal|center"
             android:focusable="false"
+            android:gravity="center_horizontal|center"
             android:text="Marc"
             android:textColor="@color/common_google_signin_btn_text_dark_focused"
             android:textSize="17sp" />
@@ -49,7 +49,7 @@
 
 
             <TextView
-                android:id="@+id/textViewAge1"
+                android:id="@+id/textViewAge"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="16dp"
@@ -62,15 +62,16 @@
                 app:layout_constraintTop_toTopOf="parent" />
 
             <EditText
-                android:id="@+id/editViewAge2"
+                android:id="@+id/editTextAge"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="16dp"
                 android:background="@android:color/transparent"
+                android:focusable="false"
                 android:text="19"
                 android:textSize="14sp"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/textViewAge1" />
+                app:layout_constraintTop_toBottomOf="@+id/textViewAge" />
 
             <TextView
                 android:id="@+id/textViewAddress1"
@@ -84,7 +85,7 @@
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.0"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/editViewAge2" />
+                app:layout_constraintTop_toBottomOf="@+id/editTextAge" />
 
             <EditText
                 android:id="@+id/editTextCountry"
@@ -92,6 +93,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="16dp"
                 android:background="@android:color/transparent"
+                android:focusable="false"
                 android:text="Spain"
                 android:textSize="14sp"
                 app:layout_constraintStart_toStartOf="parent"
@@ -101,11 +103,25 @@
                 android:id="@+id/editTextCity"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_marginEnd="16dp"
                 android:background="@android:color/transparent"
+                android:focusable="false"
                 android:text="Castello"
                 android:textSize="14sp"
-                app:layout_constraintEnd_toEndOf="@+id/textViewAddress1"
+                app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/textViewAddress1" />
+
+            <EditText
+                android:id="@+id/editTextAddress"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:focusable="false"
+                android:background="@android:color/transparent"
+                android:text="Rio Navia 2, 4D"
+                android:textSize="14sp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/editTextCountry" />
 
             <TextView
                 android:id="@+id/textViewDeliveryRating2"
@@ -128,7 +144,7 @@
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.0"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/textView2" />
+                app:layout_constraintTop_toBottomOf="@+id/editTextAddress" />
 
             <ImageView
                 android:id="@+id/imageViewDeliveryGood"
@@ -198,18 +214,6 @@
                 app:layout_constraintStart_toEndOf="@+id/imageViewConsumerGood"
                 app:layout_constraintTop_toTopOf="@+id/imageViewConsumerGood"
                 app:srcCompat="@drawable/bad" />
-
-            <TextView
-                android:id="@+id/textView2"
-                android:layout_width="wrap_content"
-                android:layout_height="15dp"
-                android:layout_marginStart="16dp"
-                android:layout_marginEnd="16dp"
-                android:text="Rio Navia 2, 4D"
-                android:visibility="invisible"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/editTextCountry" />
 
             <Button
                 android:id="@+id/buttonEditSave"

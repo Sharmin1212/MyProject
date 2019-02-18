@@ -79,8 +79,6 @@ public class FragmentOrders extends Fragment {
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
-
                 final AlertDialog dialogBuilder = new AlertDialog.Builder(thisView.getContext()).create();
                 LayoutInflater inflater = getLayoutInflater();
                 View dialogView = inflater.inflate(R.layout.dialog_add_order, null);
@@ -122,6 +120,7 @@ public class FragmentOrders extends Fragment {
                     }
                 });*/
 
+
                 buttonDiaSubmit.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View view) {
@@ -132,7 +131,10 @@ public class FragmentOrders extends Fragment {
                         } else {
 
                             //Write to my database
-                            OrderItem o = new OrderItem(imageViewAddProduct.getId(), editTextTitle.getText().toString(), Objects.requireNonNull(Singleton.sharedInstance().getmAuth().getCurrentUser()).getEmail(), editTextDescription.getText().toString());
+                            OrderItem o = new OrderItem(imageViewAddProduct.getId(),
+                                    editTextTitle.getText().toString(),
+                                    Objects.requireNonNull(Singleton.sharedInstance().getmAuth().getCurrentUser()).getEmail(),
+                                    editTextDescription.getText().toString());
                             String clau = myRef.push().getKey();
                             myRef.child("item" + clau).setValue(o);
 
