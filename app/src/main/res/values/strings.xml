@@ -35,5 +35,5 @@
     <string name="consumerDescr">- No ads\n- Make more than 3 orders per day\n\n20$/year</string>
     <string name="noAdsDescription">- No ads\n\n5$/year</string>
     <string name="logInFirst">You have to authenticate first</string>
-    <string name="acceptedOrders">Acc Orders</string>
+    <string name="acceptedOrders">Accep Orders</string>
 </resources>

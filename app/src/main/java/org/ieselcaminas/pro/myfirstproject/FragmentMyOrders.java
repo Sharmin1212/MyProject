@@ -81,27 +81,22 @@ public class FragmentMyOrders extends Fragment {
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (!Singleton.sharedInstance().isAuthenticated()) {
-                    Toast.makeText(thisView.getContext(), getString(R.string.logInFirst), Toast.LENGTH_SHORT).show();
-                } else {
+                final AlertDialog dialogBuilder = new AlertDialog.Builder(thisView.getContext()).create();
+                LayoutInflater inflater = getLayoutInflater();
+                View dialogView = inflater.inflate(R.layout.dialog_add_order, null);
+
+                editTextTitle = dialogView.findViewById(R.id.editTextTitle);
+                editTextDescription = dialogView.findViewById(R.id.editTextDescr);
+                buttonDiaSubmit = dialogView.findViewById(R.id.buttonSubmit);
+                buttonDiaCancel = dialogView.findViewById(R.id.buttonCancel);
+                imageViewAddProduct = dialogView.findViewById(R.id.imageViewAddProduct);
 
 
-                    final AlertDialog dialogBuilder = new AlertDialog.Builder(thisView.getContext()).create();
-                    LayoutInflater inflater = getLayoutInflater();
-                    View dialogView = inflater.inflate(R.layout.dialog_add_order, null);
-
-                    editTextTitle = dialogView.findViewById(R.id.editTextTitle);
-                    editTextDescription = dialogView.findViewById(R.id.editTextDescr);
-                    buttonDiaSubmit = dialogView.findViewById(R.id.buttonSubmit);
-                    buttonDiaCancel = dialogView.findViewById(R.id.buttonCancel);
-                    imageViewAddProduct = dialogView.findViewById(R.id.imageViewAddProduct);
+                FirebaseDatabase database = FirebaseDatabase.getInstance();
+                final DatabaseReference myRef = database.getReference("orders");
 
 
-                    FirebaseDatabase database = FirebaseDatabase.getInstance();
-                    final DatabaseReference myRef = database.getReference("orders");
-
-
-                    //Para mostrar los orders que sean del usuario actual?
+                //Para mostrar los orders que sean del usuario actual?
 
 
                     /*database.getReference("orders").orderByChild("owner_id").equalTo(Singleton.sharedInstance().getmAuth().getCurrentUser().getUid()).addChildEventListener(new ChildEventListener() {
@@ -132,44 +127,41 @@ public class FragmentMyOrders extends Fragment {
                     });*/
 
 
-                    buttonDiaSubmit.setOnClickListener(new View.OnClickListener() {
-                        @Override
-                        public void onClick(View view) {
+                buttonDiaSubmit.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
 
 
-                            if (editTextTitle.length() == 0 || editTextDescription.length() == 0) {
-                                Toast.makeText(thisView.getContext(), getString(R.string.putInformation), Toast.LENGTH_SHORT).show();
-                            } else {
+                        if (editTextTitle.length() == 0 || editTextDescription.length() == 0) {
+                            Toast.makeText(thisView.getContext(), getString(R.string.putInformation), Toast.LENGTH_SHORT).show();
+                        } else {
 
-                                //Write to my database
-                                OrderItem o = new OrderItem(imageViewAddProduct.getId(),
-                                        editTextTitle.getText().toString(),
-                                        Objects.requireNonNull(Singleton.sharedInstance().getmAuth().getCurrentUser()).getEmail(),
-                                        editTextDescription.getText().toString(),
-                                        Singleton.sharedInstance().getmAuth().getUid());
-                                String clau = myRef.push().getKey();
-                                myRef.child("item" + clau).setValue(o);
+                            //Write to my database
+                            OrderItem o = new OrderItem(imageViewAddProduct.getId(),
+                                    editTextTitle.getText().toString(),
+                                    Objects.requireNonNull(Singleton.sharedInstance().getmAuth().getCurrentUser()).getEmail(),
+                                    editTextDescription.getText().toString(),
+                                    Singleton.sharedInstance().getmAuth().getUid());
+                            String clau = myRef.push().getKey();
+                            myRef.child("item" + clau).setValue(o);
 
 
-                                dialogBuilder.dismiss();
-                            }
-
-                        }
-
-                    });
-
-                    buttonDiaCancel.setOnClickListener(new View.OnClickListener() {
-                        @Override
-                        public void onClick(View view) {
                             dialogBuilder.dismiss();
                         }
-                    });
 
-                    dialogBuilder.setView(dialogView);
-                    dialogBuilder.show();
+                    }
 
+                });
 
-                }
+                buttonDiaCancel.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        dialogBuilder.dismiss();
+                    }
+                });
+
+                dialogBuilder.setView(dialogView);
+                dialogBuilder.show();
             }
         });
 
