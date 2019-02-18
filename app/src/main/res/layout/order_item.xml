@@ -35,7 +35,7 @@
                 app:srcCompat="@drawable/bags" />
 
             <TextView
-                android:id="@+id/ConsumerPlan"
+                android:id="@+id/textViewOrderTitle"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="16dp"
@@ -57,7 +57,7 @@
                 app:layout_constraintTop_toTopOf="parent" />
 
             <TextView
-                android:id="@+id/textViewConsumerDescr"
+                android:id="@+id/textViewOrderDescr"
                 android:layout_width="0dp"
                 android:layout_height="18dp"
                 android:layout_marginStart="16dp"
@@ -66,10 +66,10 @@
                 android:text="@string/productDescr"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toEndOf="@+id/imageViewProduct"
-                app:layout_constraintTop_toBottomOf="@+id/ConsumerPlan" />
+                app:layout_constraintTop_toBottomOf="@+id/textViewOrderTitle" />
 
             <Button
-                android:id="@+id/buttonBuyConsumer"
+                android:id="@+id/buttonAcceptOrder"
                 style="@style/Widget.AppCompat.Button"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
@@ -83,7 +83,7 @@
                 android:textColor="@android:color/white"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/textViewConsumerDescr" />
+                app:layout_constraintTop_toBottomOf="@+id/textViewOrderDescr" />
         </android.support.constraint.ConstraintLayout>
     </android.support.v7.widget.CardView>
 </android.support.constraint.ConstraintLayout>

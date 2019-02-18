@@ -62,6 +62,7 @@
             android:textColor="@android:color/white"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="@+id/buttonMenu2" />
+
     </android.support.constraint.ConstraintLayout>
 
 
@@ -83,6 +84,7 @@
             android:layout_marginStart="16dp"
             android:text="@string/profile"
             android:textColor="@android:color/white"
+            app:layout_constraintEnd_toStartOf="@+id/buttonProfileMyOrders"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="@+id/buttonProfileMyOrders" />
 
@@ -91,13 +93,24 @@
             style="@style/Widget.AppCompat.Button.Borderless"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="44dp"
-            android:layout_marginEnd="44dp"
             android:text="@string/myOrders"
             android:textColor="@android:color/white"
-            app:layout_constraintEnd_toStartOf="@+id/buttonLogOut"
+            app:layout_constraintEnd_toStartOf="@+id/buttonProfileAcceptedOrders"
             app:layout_constraintStart_toEndOf="@+id/buttonProfile"
             app:layout_constraintTop_toTopOf="@id/ConstraintLayoutProfileMenu" />
+
+        <Button
+            android:id="@+id/buttonProfileAcceptedOrders"
+            style="@style/Widget.AppCompat.Button.Borderless"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/acceptedOrders"
+            android:textColor="@android:color/white"
+            app:layout_constraintEnd_toStartOf="@+id/buttonLogOut"
+            app:layout_constraintStart_toEndOf="@+id/buttonProfileMyOrders"
+            app:layout_constraintTop_toTopOf="@+id/buttonProfileMyOrders"
+            tools:layout_editor_absoluteX="201dp"
+            tools:layout_editor_absoluteY="2dp" />
 
         <ImageButton
             android:id="@+id/buttonLogOut"
@@ -110,6 +123,7 @@
             android:src="@drawable/exit"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/buttonProfileAcceptedOrders"
             app:layout_constraintTop_toTopOf="@+id/buttonProfileMyOrders" />
     </android.support.constraint.ConstraintLayout>
 
@@ -121,6 +135,7 @@
         android:minHeight="?attr/actionBarSize"
         android:theme="?attr/actionBarTheme"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
 

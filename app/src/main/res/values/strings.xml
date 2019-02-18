@@ -23,7 +23,6 @@
     <string name="user">User</string>
     <string name="productDescr">Product Description</string>
     <string name="putInformation">You have forgotten something</string>
-    <string name="logInForOrder">Please log in to place an order</string>
     <string name="edit">EDIT</string>
     <string name="save">Save</string>
     <string name="plans">Plans</string>
@@ -35,5 +34,6 @@
     <string name="deliveryDescr">- No ads\n- Deliver more than 3 orders per day\n\n20$/year</string>
     <string name="consumerDescr">- No ads\n- Make more than 3 orders per day\n\n20$/year</string>
     <string name="noAdsDescription">- No ads\n\n5$/year</string>
-    <string name="logInFirst">Log in First</string>
+    <string name="logInFirst">You have to authenticate first</string>
+    <string name="acceptedOrders">Acc Orders</string>
 </resources>

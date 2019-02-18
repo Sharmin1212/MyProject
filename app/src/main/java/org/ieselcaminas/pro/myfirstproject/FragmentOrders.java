@@ -63,7 +63,14 @@ public class FragmentOrders extends Fragment {
                 list = new ArrayList<>();
                 for (DataSnapshot dataSnapshot1 : dataSnapshot.getChildren()) {
                     OrderItem p = dataSnapshot1.getValue(OrderItem.class);
-                    list.add(p);
+                    if (!Singleton.sharedInstance().isAuthenticated()) {
+                        list.add(p);
+                    } else {
+                        if (!p.getOwner().equals(Singleton.sharedInstance().getmAuth().getUid())) {
+                            list.add(p);
+                        }
+                    }
+
                 }
                 adapter = new OrderAdapter(thisView.getContext(), list);
                 recView.setAdapter(adapter);
@@ -79,85 +86,98 @@ public class FragmentOrders extends Fragment {
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                final AlertDialog dialogBuilder = new AlertDialog.Builder(thisView.getContext()).create();
-                LayoutInflater inflater = getLayoutInflater();
-                View dialogView = inflater.inflate(R.layout.dialog_add_order, null);
-
-                editTextTitle = dialogView.findViewById(R.id.editTextTitle);
-                editTextDescription = dialogView.findViewById(R.id.editTextDescr);
-                buttonDiaSubmit = dialogView.findViewById(R.id.buttonSubmit);
-                buttonDiaCancel = dialogView.findViewById(R.id.buttonCancel);
-                imageViewAddProduct = dialogView.findViewById(R.id.imageViewAddProduct);
+                if (!Singleton.sharedInstance().isAuthenticated()) {
+                    Toast.makeText(thisView.getContext(), getString(R.string.logInFirst), Toast.LENGTH_SHORT).show();
+                } else {
 
 
-                FirebaseDatabase database = FirebaseDatabase.getInstance();
-                final DatabaseReference myRef = database.getReference("orders");
+                    final AlertDialog dialogBuilder = new AlertDialog.Builder(thisView.getContext()).create();
+                    LayoutInflater inflater = getLayoutInflater();
+                    View dialogView = inflater.inflate(R.layout.dialog_add_order, null);
 
-                /*database.getReference("orders").orderByChild("owner_id").equalTo(Singleton.sharedInstance().getmAuth().getCurrentUser().getUid()).addChildEventListener(new ChildEventListener() {
-                    @Override
-                    public void onChildAdded(@NonNull DataSnapshot dataSnapshot, @Nullable String s) {
-                        OrderItem p = dataSnapshot.getValue(OrderItem.class);
-                    }
-
-                    @Override
-                    public void onChildChanged(@NonNull DataSnapshot dataSnapshot, @Nullable String s) {
-
-                    }
-
-                    @Override
-                    public void onChildRemoved(@NonNull DataSnapshot dataSnapshot) {
-
-                    }
-
-                    @Override
-                    public void onChildMoved(@NonNull DataSnapshot dataSnapshot, @Nullable String s) {
-
-                    }
-
-                    @Override
-                    public void onCancelled(@NonNull DatabaseError databaseError) {
-
-                    }
-                });*/
+                    editTextTitle = dialogView.findViewById(R.id.editTextTitle);
+                    editTextDescription = dialogView.findViewById(R.id.editTextDescr);
+                    buttonDiaSubmit = dialogView.findViewById(R.id.buttonSubmit);
+                    buttonDiaCancel = dialogView.findViewById(R.id.buttonCancel);
+                    imageViewAddProduct = dialogView.findViewById(R.id.imageViewAddProduct);
 
 
-                buttonDiaSubmit.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View view) {
-                        if (editTextTitle.length() == 0 || editTextDescription.length() == 0) {
-                            Toast.makeText(thisView.getContext(), getString(R.string.putInformation), Toast.LENGTH_SHORT).show();
-                        } else if (!Singleton.sharedInstance().isAuthenticated()) {
-                            Toast.makeText(thisView.getContext(), getString(R.string.logInForOrder), Toast.LENGTH_SHORT).show();
-                        } else {
-
-                            //Write to my database
-                            OrderItem o = new OrderItem(imageViewAddProduct.getId(),
-                                    editTextTitle.getText().toString(),
-                                    Objects.requireNonNull(Singleton.sharedInstance().getmAuth().getCurrentUser()).getEmail(),
-                                    editTextDescription.getText().toString());
-                            String clau = myRef.push().getKey();
-                            myRef.child("item" + clau).setValue(o);
+                    FirebaseDatabase database = FirebaseDatabase.getInstance();
+                    final DatabaseReference myRef = database.getReference("orders");
 
 
-                            dialogBuilder.dismiss();
+                    //Para mostrar los orders que sean del usuario actual?
+
+
+                    /*database.getReference("orders").orderByChild("owner_id").equalTo(Singleton.sharedInstance().getmAuth().getCurrentUser().getUid()).addChildEventListener(new ChildEventListener() {
+                        @Override
+                        public void onChildAdded(@NonNull DataSnapshot dataSnapshot, @Nullable String s) {
+                            OrderItem p = dataSnapshot.getValue(OrderItem.class);
                         }
 
-                    }
-                });
+                        @Override
+                        public void onChildChanged(@NonNull DataSnapshot dataSnapshot, @Nullable String s) {
 
-                buttonDiaCancel.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View view) {
-                        dialogBuilder.dismiss();
-                    }
-                });
+                        }
 
-                dialogBuilder.setView(dialogView);
-                dialogBuilder.show();
+                        @Override
+                        public void onChildRemoved(@NonNull DataSnapshot dataSnapshot) {
+
+                        }
+
+                        @Override
+                        public void onChildMoved(@NonNull DataSnapshot dataSnapshot, @Nullable String s) {
+
+                        }
+
+                        @Override
+                        public void onCancelled(@NonNull DatabaseError databaseError) {
+
+                        }
+                    });*/
 
 
+                    buttonDiaSubmit.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View view) {
+
+
+                            if (editTextTitle.length() == 0 || editTextDescription.length() == 0) {
+                                Toast.makeText(thisView.getContext(), getString(R.string.putInformation), Toast.LENGTH_SHORT).show();
+                            } else {
+
+                                //Write to my database
+                                OrderItem o = new OrderItem(imageViewAddProduct.getId(),
+                                        editTextTitle.getText().toString(),
+                                        Objects.requireNonNull(Singleton.sharedInstance().getmAuth().getCurrentUser()).getEmail(),
+                                        editTextDescription.getText().toString(),
+                                        Singleton.sharedInstance().getmAuth().getUid());
+                                String clau = myRef.push().getKey();
+                                myRef.child("item" + clau).setValue(o);
+
+
+                                dialogBuilder.dismiss();
+                            }
+
+                        }
+
+                    });
+
+                    buttonDiaCancel.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View view) {
+                            dialogBuilder.dismiss();
+                        }
+                    });
+
+                    dialogBuilder.setView(dialogView);
+                    dialogBuilder.show();
+
+
+                }
             }
         });
+
         return thisView;
     }
 }

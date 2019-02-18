@@ -30,7 +30,7 @@ public class FragmentPlans extends android.support.v4.app.Fragment {
         buttonBuyDelivery.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (Singleton.sharedInstance().getmAuth().getCurrentUser() == null) {
+                if (!Singleton.sharedInstance().isAuthenticated()) {
                     Toast.makeText(thisView.getContext(), getString(R.string.logInFirst), Toast.LENGTH_SHORT).show();
                 }
             }
@@ -39,7 +39,7 @@ public class FragmentPlans extends android.support.v4.app.Fragment {
         buttonBuyConsumer.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (Singleton.sharedInstance().getmAuth().getCurrentUser() == null) {
+                if (!Singleton.sharedInstance().isAuthenticated()) {
                     Toast.makeText(thisView.getContext(), getString(R.string.logInFirst), Toast.LENGTH_SHORT).show();
                 }
             }
@@ -48,7 +48,7 @@ public class FragmentPlans extends android.support.v4.app.Fragment {
         buttonBuyNoAds.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (Singleton.sharedInstance().getmAuth().getCurrentUser() == null) {
+                if (!Singleton.sharedInstance().isAuthenticated()) {
                     Toast.makeText(thisView.getContext(), getString(R.string.logInFirst), Toast.LENGTH_SHORT).show();
                 }
             }

@@ -6,16 +6,18 @@ public class OrderItem {
     private String title;
     private String user;
     private String descr;
+    private String owner;
 
     public OrderItem() {
 
     }
 
-    public OrderItem(int img, String title, String user, String descr) {
+    public OrderItem(int img, String title, String user, String descr, String owner) {
         this.img = img;
         this.title = title;
         this.user = user;
         this.descr = descr;
+        this.owner = owner;
     }
 
 
@@ -51,5 +53,13 @@ public class OrderItem {
 
     public void setDescr(String descr) {
         this.descr = descr;
+    }
+
+    public String getOwner() {
+        return owner;
+    }
+
+    public void setOwner(String owner) {
+        this.owner = owner;
     }
 }

@@ -5,6 +5,7 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -33,6 +34,13 @@ public class OrderAdapter extends RecyclerView.Adapter<OrderAdapter.MyHolder> {
         holder.user.setText(myList.getUser());
         holder.descr.setText(myList.getDescr());
 //        holder.img.setImageResource(myList.getImage());
+
+        holder.btn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                
+            }
+        });
     }
 
     @Override
@@ -52,15 +60,16 @@ public class OrderAdapter extends RecyclerView.Adapter<OrderAdapter.MyHolder> {
     class MyHolder extends RecyclerView.ViewHolder {
         TextView title, user, descr;
         ImageView img;
+        Button btn;
 
 
         public MyHolder(View itemView) {
             super(itemView);
-            title = itemView.findViewById(R.id.ConsumerPlan);
+            title = itemView.findViewById(R.id.textViewOrderTitle);
             user = itemView.findViewById(R.id.textViewUser);
-            descr = itemView.findViewById(R.id.textViewConsumerDescr);
+            descr = itemView.findViewById(R.id.textViewOrderDescr);
             img = itemView.findViewById(R.id.imageViewProduct);
-
+            btn = itemView.findViewById(R.id.buttonAcceptOrder);
         }
     }
 
