@@ -19,12 +19,11 @@ public class MainActivity extends AppCompatActivity {
     Fragment fragment;
 
     Button buttonMenuOrders;
-    Button buttonMainMenu2;
     Button buttonMenuPlans;
     ConstraintLayout constraintLayoutMainMenu;
     ConstraintLayout constraintLayoutProfileMenu;
     Button buttonProfile;
-    Button buttonProfileMenu2;
+    Button buttonProfileMyOrders;
     ImageButton buttonLogOut;
     boolean mainMenuDown;
     boolean profileMenuDown;
@@ -44,6 +43,7 @@ public class MainActivity extends AppCompatActivity {
         buttonMenuOrders = findViewById(R.id.buttonMenuOrders);
         buttonMenuPlans = findViewById(R.id.buttonMenuPlans);
         buttonProfile = findViewById(R.id.buttonProfile);
+        buttonProfileMyOrders = findViewById(R.id.buttonProfileMyOrders);
         buttonLogOut = findViewById(R.id.buttonLogOut);
         constraintLayoutMainMenu = findViewById(R.id.ConstraintLayoutMenu);
         constraintLayoutProfileMenu = findViewById(R.id.ConstraintLayoutProfileMenu);
@@ -86,6 +86,15 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 fragment = new FragmentProfile();
+                getSupportFragmentManager().beginTransaction().replace(R.id.content_frame, fragment).commit();
+                upAllMenus();
+            }
+        });
+
+        buttonProfileMyOrders.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                fragment = new FragmentMyOrders();
                 getSupportFragmentManager().beginTransaction().replace(R.id.content_frame, fragment).commit();
                 upAllMenus();
             }
