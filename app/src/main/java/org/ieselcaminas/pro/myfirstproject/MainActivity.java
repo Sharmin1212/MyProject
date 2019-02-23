@@ -1,6 +1,7 @@
 package org.ieselcaminas.pro.myfirstproject;
 
 import android.content.Intent;
+import android.graphics.Typeface;
 import android.support.constraint.ConstraintLayout;
 import android.support.v4.app.Fragment;
 import android.support.v7.app.AppCompatActivity;
@@ -11,6 +12,8 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageButton;
+import android.widget.ImageView;
+import android.widget.TextView;
 
 import com.google.firebase.auth.FirebaseUser;
 
@@ -18,16 +21,23 @@ public class MainActivity extends AppCompatActivity {
 
     Fragment fragment;
 
-    Button buttonMenuOrders;
-    Button buttonMenuPlans;
     ConstraintLayout constraintLayoutMainMenu;
     ConstraintLayout constraintLayoutProfileMenu;
+
+    Button buttonMenuOrders;
+    Button buttonMenuPlans;
     Button buttonProfile;
     Button buttonProfileMyOrders;
+    TextView buttonOrders;
+    TextView buttonPlans;
+    TextView buttonAuthenticate;
+
     ImageButton buttonLogOut;
+    ImageView imageViewLogo;
     boolean mainMenuDown;
     boolean profileMenuDown;
     android.support.v7.widget.Toolbar toolbar;
+    TextView textViewSlogan;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -45,8 +55,17 @@ public class MainActivity extends AppCompatActivity {
         buttonProfile = findViewById(R.id.buttonProfile);
         buttonProfileMyOrders = findViewById(R.id.buttonProfileMyOrders);
         buttonLogOut = findViewById(R.id.buttonLogOut);
+        imageViewLogo = findViewById(R.id.imageViewLogo);
         constraintLayoutMainMenu = findViewById(R.id.ConstraintLayoutMenu);
         constraintLayoutProfileMenu = findViewById(R.id.ConstraintLayoutProfileMenu);
+        textViewSlogan = findViewById(R.id.textViewSlogan);
+        buttonOrders = findViewById(R.id.buttonOrders);
+        buttonPlans = findViewById(R.id.buttonPlans);
+        buttonAuthenticate = findViewById(R.id.buttonAuthenticate);
+
+        Typeface custom_font = Typeface.createFromAsset(getAssets(), "fonts/Wellsight.ttf");
+
+        textViewSlogan.setTypeface(custom_font);
 
 
         setSupportActionBar(toolbar);
@@ -56,6 +75,9 @@ public class MainActivity extends AppCompatActivity {
         mainMenuDown = false;
         profileMenuDown = false;
 
+        imageViewLogo.setAlpha(0f);
+        imageViewLogo.setFocusable(false);
+
 
         //opcion de busqueda
         toolbar.setNavigationOnClickListener(new View.OnClickListener() {
@@ -64,30 +86,49 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
+        imageViewLogo.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                for (Fragment fragment : getSupportFragmentManager().getFragments()) {
+                    getSupportFragmentManager().beginTransaction().remove(fragment).commit();
+                }
+
+                hideLogo();
+            }
+        });
+
         buttonMenuOrders.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                fragment = new FragmentOrders();
-                getSupportFragmentManager().beginTransaction().replace(R.id.content_frame, fragment).commit();
-                upAllMenus();
+                goToOrders();
+            }
+        });
+
+        buttonOrders.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                goToOrders();
             }
         });
 
         buttonMenuPlans.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                fragment = new FragmentPlans();
-                getSupportFragmentManager().beginTransaction().replace(R.id.content_frame, fragment).commit();
-                upAllMenus();
+                goToPlans();
+            }
+        });
+
+        buttonPlans.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                goToPlans();
             }
         });
 
         buttonProfile.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                fragment = new FragmentProfile();
-                getSupportFragmentManager().beginTransaction().replace(R.id.content_frame, fragment).commit();
-                upAllMenus();
+                goToProfile();
             }
         });
 
@@ -97,6 +138,7 @@ public class MainActivity extends AppCompatActivity {
                 fragment = new FragmentMyOrders();
                 getSupportFragmentManager().beginTransaction().replace(R.id.content_frame, fragment).commit();
                 upAllMenus();
+                showLogo();
             }
         });
 
@@ -111,6 +153,38 @@ public class MainActivity extends AppCompatActivity {
                 onStart();
             }
         });
+
+        buttonAuthenticate.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (Singleton.sharedInstance().isAuthenticated()) {
+                    goToProfile();
+                } else {
+                    goToAuthentication();
+                }
+            }
+        });
+    }
+
+    private void goToProfile() {
+        fragment = new FragmentProfile();
+        getSupportFragmentManager().beginTransaction().replace(R.id.content_frame, fragment).commit();
+        upAllMenus();
+        showLogo();
+    }
+
+    private void goToPlans() {
+        fragment = new FragmentPlans();
+        getSupportFragmentManager().beginTransaction().replace(R.id.content_frame, fragment).commit();
+        upAllMenus();
+        showLogo();
+    }
+
+    private void goToOrders() {
+        fragment = new FragmentOrders();
+        getSupportFragmentManager().beginTransaction().replace(R.id.content_frame, fragment).commit();
+        upAllMenus();
+        showLogo();
     }
 
 
@@ -122,6 +196,7 @@ public class MainActivity extends AppCompatActivity {
 
         if (currentUser != null) {
             Singleton.sharedInstance().setAuthenticated(true);
+            buttonAuthenticate.setText(getString(R.string.profile));
         }
     }
 
@@ -155,8 +230,7 @@ public class MainActivity extends AppCompatActivity {
                 return true;
             case R.id.action_user:
                 if (!Singleton.sharedInstance().isAuthenticated()) {
-                    Intent i = new Intent(getApplicationContext(), AuthenticationActivity.class);
-                    startActivity(i);
+                    goToAuthentication();
                 } else {
                     if (profileMenuDown) {
                         upAnimation(constraintLayoutProfileMenu, toolbar.getHeight(), 0, 1.0f, 0.0f);
@@ -175,6 +249,11 @@ public class MainActivity extends AppCompatActivity {
             default:
                 return super.onOptionsItemSelected(item);
         }
+    }
+
+    private void goToAuthentication() {
+        Intent i = new Intent(getApplicationContext(), AuthenticationActivity.class);
+        startActivity(i);
     }
 
     private void downAnimation(ConstraintLayout constraint, int i2, int i3, float v, float v2) {
@@ -197,6 +276,19 @@ public class MainActivity extends AppCompatActivity {
             upAnimation(constraintLayoutProfileMenu, toolbar.getHeight(), 0, 1.0f, 0.0f);
             profileMenuDown = false;
         }
+    }
+
+    public void hideLogo() {
+        imageViewLogo.animate().alpha(1.0f).setDuration(500).start();
+        imageViewLogo.animate().alpha(0).start();
+        imageViewLogo.setFocusable(false);
+    }
+
+    public void showLogo() {
+        imageViewLogo.animate().alpha(0).setDuration(500).start();
+        imageViewLogo.animate().alpha(1.0f).start();
+        imageViewLogo.setFocusable(true);
+
     }
 
 }

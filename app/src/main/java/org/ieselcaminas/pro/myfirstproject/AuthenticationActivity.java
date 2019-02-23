@@ -101,14 +101,17 @@ public class AuthenticationActivity extends AppCompatActivity {
         buttonGoogle.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+
                 GoogleSignInOptions gso = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
-                        .requestIdToken(getString(R.string.default_web_client_id))
+                        .requestIdToken("243132259795-12rhuk90blrd0mitv0vij132lhcfuj5s.apps.googleusercontent.com")
                         .requestEmail()
                         .build();
+
 
                 GoogleSignInClient mGoogleSignInClient = GoogleSignIn.getClient(AuthenticationActivity.this, gso);
                 Intent signInIntent = mGoogleSignInClient.getSignInIntent();
                 startActivityForResult(signInIntent, RC_SIGN_IN);
+
 
             }
         });

@@ -9,13 +9,13 @@
     <string name="confPassword">Confirm Password</string>
     <string name="signUp">Sign Up</string>
     <string name="login">Login</string>
-    <string name="profile">Profile</string>
+    <string name="profile">PROFILE</string>
     <string name="age">Age</string>
     <string name="deliveryRating">Delivery Rating</string>
     <string name="consumerRating">Consumer Rating</string>
     <string name="makeOrder">Make an order</string>
     <string name="receiveOrder">Receive Order</string>
-    <string name="orders">Orders</string>
+    <string name="orders">ORDERS</string>
     <string name="address">Address</string>
     <string name="acceptOrder">Accept Order</string>
     <string name="newOrder">Add new order</string>
@@ -25,7 +25,7 @@
     <string name="putInformation">You have forgotten something</string>
     <string name="edit">EDIT</string>
     <string name="save">Save</string>
-    <string name="plans">Plans</string>
+    <string name="plans">PLANS</string>
     <string name="myOrders">My Orders</string>
     <string name="deliverySub">Delivery Subscription</string>
     <string name="buy">Buy</string>
@@ -35,5 +35,7 @@
     <string name="consumerDescr">- No ads\n- Make more than 3 orders per day\n\n20$/year</string>
     <string name="noAdsDescription">- No ads\n\n5$/year</string>
     <string name="logInFirst">You have to authenticate first</string>
-    <string name="acceptedOrders">Accep Orders</string>
+    <string name="acceptedOrders">To deliver</string>
+    <string name="slogan">make an order or send it yourself</string>
+    <string name="registerLogIn">REGISTER / LOG IN</string>
 </resources>
