@@ -59,7 +59,7 @@ public class FragmentOrders extends Fragment {
                     if (!Singleton.sharedInstance().isAuthenticated()) {
                         list.add(p);
                     } else {
-                        if (!p.getOwner().equals(Singleton.sharedInstance().getmAuth().getUid())) {
+                        if (!p.getOwner().equals(Singleton.sharedInstance().getmAuth().getUid()) && p.getAccepted().equals("no")) {
                             list.add(p);
                         }
                     }

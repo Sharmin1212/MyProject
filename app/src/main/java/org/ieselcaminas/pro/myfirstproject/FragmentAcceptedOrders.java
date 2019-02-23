@@ -24,7 +24,7 @@ import com.google.firebase.database.ValueEventListener;
 import java.util.ArrayList;
 import java.util.Objects;
 
-public class FragmentMyOrders extends Fragment {
+public class FragmentAcceptedOrders extends Fragment {
 
     FloatingActionButton fab;
     Button buttonDiaSubmit;
@@ -38,7 +38,7 @@ public class FragmentMyOrders extends Fragment {
     ArrayList<OrderItem> list;
     DatabaseReference reference;
 
-    public FragmentMyOrders() {
+    public FragmentAcceptedOrders() {
 
     }
 

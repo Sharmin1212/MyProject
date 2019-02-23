@@ -8,18 +8,9 @@ public class OrderItem {
     private String descr;
     private String owner;
 
-    public String getAccepted() {
-        return accepted;
-    }
-
-    public void setAccepted(String accepted) {
-        this.accepted = accepted;
-    }
-
     private String accepted;
 
     public OrderItem() {
-
     }
 
     public OrderItem(int img, String title, String user, String descr, String owner, String accepted) {
@@ -72,5 +63,13 @@ public class OrderItem {
 
     public void setOwner(String owner) {
         this.owner = owner;
+    }
+
+    public String getAccepted() {
+        return accepted;
+    }
+
+    public void setAccepted(String accepted) {
+        this.accepted = accepted;
     }
 }
