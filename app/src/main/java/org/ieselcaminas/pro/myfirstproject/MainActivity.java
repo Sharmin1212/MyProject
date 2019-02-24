@@ -93,7 +93,7 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 for (Fragment fragment : getSupportFragmentManager().getFragments()) {
-                    getSupportFragmentManager().beginTransaction().remove(fragment).commit();
+                    getSupportFragmentManager().beginTransaction().remove(fragment).addToBackStack(null).commit();
                 }
 
                 hideLogo();
@@ -139,7 +139,7 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 fragment = new FragmentMyOrders();
-                getSupportFragmentManager().beginTransaction().replace(R.id.content_frame, fragment).commit();
+                getSupportFragmentManager().beginTransaction().replace(R.id.content_frame, fragment).addToBackStack(null).commit();
                 upAllMenus();
                 showLogo();
             }
@@ -149,7 +149,7 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 fragment = new FragmentAcceptedOrders();
-                getSupportFragmentManager().beginTransaction().replace(R.id.content_frame, fragment).commit();
+                getSupportFragmentManager().beginTransaction().replace(R.id.content_frame, fragment).addToBackStack(null).commit();
                 upAllMenus();
                 showLogo();
             }
@@ -181,21 +181,21 @@ public class MainActivity extends AppCompatActivity {
 
     private void goToProfile() {
         fragment = new FragmentProfile();
-        getSupportFragmentManager().beginTransaction().replace(R.id.content_frame, fragment).commit();
+        getSupportFragmentManager().beginTransaction().replace(R.id.content_frame, fragment).addToBackStack(null).commit();
         upAllMenus();
         showLogo();
     }
 
     private void goToPlans() {
         fragment = new FragmentPlans();
-        getSupportFragmentManager().beginTransaction().replace(R.id.content_frame, fragment).commit();
+        getSupportFragmentManager().beginTransaction().replace(R.id.content_frame, fragment).addToBackStack(null).commit();
         upAllMenus();
         showLogo();
     }
 
     private void goToOrders() {
         fragment = new FragmentOrders();
-        getSupportFragmentManager().beginTransaction().replace(R.id.content_frame, fragment).commit();
+        getSupportFragmentManager().beginTransaction().replace(R.id.content_frame, fragment).addToBackStack(null).commit();
         upAllMenus();
         showLogo();
     }
