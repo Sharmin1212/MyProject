@@ -38,4 +38,6 @@
     <string name="acceptedOrders">To deliver</string>
     <string name="slogan">make an order or send it yourself</string>
     <string name="registerLogIn">REGISTER / LOG IN</string>
+    <string name="cancel">Cancel</string>
+    <string name="delete">Delete</string>
 </resources>

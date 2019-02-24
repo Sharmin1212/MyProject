@@ -32,7 +32,7 @@ public class FragmentMyOrders extends Fragment {
     EditText editTextTitle;
     EditText editTextDescription;
     ImageView imageViewAddProduct;
-    OrderAdapter adapter;
+    AdapterMyOrder adapter;
 
     RecyclerView recView;
     ArrayList<OrderItem> list;
@@ -67,7 +67,7 @@ public class FragmentMyOrders extends Fragment {
                     }
 
                 }
-                adapter = new OrderAdapter(thisView.getContext(), list);
+                adapter = new AdapterMyOrder(thisView.getContext(), list);
                 recView.setAdapter(adapter);
             }
 

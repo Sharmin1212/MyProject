@@ -19,13 +19,13 @@ import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
 
-public class OrderAdapter extends RecyclerView.Adapter<OrderAdapter.MyHolder> {
+public class AdapterMyOrder extends RecyclerView.Adapter<AdapterMyOrder.MyHolder> {
 
     Context context;
     ArrayList<OrderItem> list;
     DatabaseReference reference;
 
-    public OrderAdapter(Context c, ArrayList<OrderItem> l) {
+    public AdapterMyOrder(Context c, ArrayList<OrderItem> l) {
         context = c;
         list = l;
 
@@ -42,23 +42,52 @@ public class OrderAdapter extends RecyclerView.Adapter<OrderAdapter.MyHolder> {
         holder.title.setText(myList.getTitle());
         holder.user.setText(myList.getUser());
         holder.descr.setText(myList.getDescr());
+        holder.btnCancel.setVisibility(View.VISIBLE);
+        holder.btnCancel.setFocusable(true);
+        holder.btnCancel.setText(context.getString(R.string.delete));
+        holder.btnAccept.setText("Completed");
+
+
 //        holder.img.setImageResource(myList.getImage());
 
-        holder.btn.setOnClickListener(new View.OnClickListener() {
+        reference = FirebaseDatabase.getInstance().getReference().child("orders");
+
+        holder.btnAccept.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(final View v) {
-                reference = FirebaseDatabase.getInstance().getReference().child("orders");
                 reference.addValueEventListener(new ValueEventListener() {
                     @Override
                     public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                         for (DataSnapshot dataSnapshot1 : dataSnapshot.getChildren()) {
                             OrderItem p = dataSnapshot1.getValue(OrderItem.class);
                             if (p.getOwner().equals(myList.getOwner()) && p.getTitle().equals(myList.getTitle())) {
-                                dataSnapshot1.child("accepted").getRef().setValue(Singleton.sharedInstance().getmAuth().getUid());
-                                Toast.makeText(v.getContext(), "Order accepted", Toast.LENGTH_SHORT).show();
-                                list.remove(position);
-                                notifyItemRemoved(position);
-                                notifyItemRangeChanged(position, list.size());
+                                dataSnapshot1.getRef().removeValue();
+                                Toast.makeText(v.getContext(), "Order completed", Toast.LENGTH_SHORT).show();
+                                removeAt(holder.getAdapterPosition());
+                            }
+                        }
+                    }
+
+                    @Override
+                    public void onCancelled(@NonNull DatabaseError databaseError) {
+                        Toast.makeText(v.getContext(), "Something is wrong", Toast.LENGTH_SHORT).show();
+                    }
+                });
+            }
+        });
+
+        holder.btnCancel.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(final View v) {
+                reference.addValueEventListener(new ValueEventListener() {
+                    @Override
+                    public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                        for (DataSnapshot dataSnapshot1 : dataSnapshot.getChildren()) {
+                            OrderItem p = dataSnapshot1.getValue(OrderItem.class);
+                            if (p.getOwner().equals(myList.getOwner()) && p.getTitle().equals(myList.getTitle())) {
+                                Toast.makeText(v.getContext(), "Order removed", Toast.LENGTH_SHORT).show();
+                                removeAt(holder.getAdapterPosition());
+                                dataSnapshot1.getRef().removeValue();
                             }
                         }
                     }
@@ -74,22 +103,13 @@ public class OrderAdapter extends RecyclerView.Adapter<OrderAdapter.MyHolder> {
 
     @Override
     public int getItemCount() {
-        /*int arr = 0;
-        try {
-            if (list.size() == 0) {
-                arr = 0;
-            } else {
-                arr = list.size();
-            }
-        } catch (Exception e) {
-        }*/
         return list.size();
     }
 
     class MyHolder extends RecyclerView.ViewHolder {
         TextView title, user, descr;
         ImageView img;
-        Button btn;
+        Button btnAccept, btnCancel;
 
 
         public MyHolder(View itemView) {
@@ -98,8 +118,15 @@ public class OrderAdapter extends RecyclerView.Adapter<OrderAdapter.MyHolder> {
             user = itemView.findViewById(R.id.textViewUser);
             descr = itemView.findViewById(R.id.textViewOrderDescr);
             img = itemView.findViewById(R.id.imageViewProduct);
-            btn = itemView.findViewById(R.id.buttonAcceptOrder);
+            btnAccept = itemView.findViewById(R.id.buttonAcceptOrder);
+            btnCancel = itemView.findViewById(R.id.buttonCancelOrder);
         }
+    }
+
+    public void removeAt(int position) {
+        list.remove(position);
+        notifyItemRemoved(position);
+        notifyItemRangeChanged(position, list.size());
     }
 
 }

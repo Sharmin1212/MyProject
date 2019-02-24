@@ -116,35 +116,22 @@
             style="@style/Widget.AppCompat.Button.Borderless"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="16dp"
             android:text="@string/orders"
             android:textColor="@android:color/white"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="@+id/buttonMenu2" />
-
-        <Button
-            android:id="@+id/buttonMenu2"
-            style="@style/Widget.AppCompat.Button.Borderless"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="44dp"
-            android:layout_marginEnd="44dp"
-            android:text="Menu2"
-            android:textColor="@android:color/white"
             app:layout_constraintEnd_toStartOf="@+id/buttonMenuPlans"
-            app:layout_constraintStart_toEndOf="@+id/buttonMenuOrders"
-            app:layout_constraintTop_toTopOf="@id/ConstraintLayoutMenu" />
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
 
         <Button
             android:id="@+id/buttonMenuPlans"
             style="@style/Widget.AppCompat.Button.Borderless"
             android:layout_width="wrap_content"
             android:layout_height="48dp"
-            android:layout_marginEnd="16dp"
             android:text="@string/plans"
             android:textColor="@android:color/white"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="@+id/buttonMenu2" />
+            app:layout_constraintStart_toEndOf="@+id/buttonMenuOrders"
+            app:layout_constraintTop_toTopOf="parent" />
 
     </android.support.constraint.ConstraintLayout>
 

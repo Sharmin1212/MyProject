@@ -28,6 +28,8 @@ public class MainActivity extends AppCompatActivity {
     Button buttonMenuPlans;
     Button buttonProfile;
     Button buttonProfileMyOrders;
+    Button buttonProfileAcceptedOrders;
+
     TextView buttonOrders;
     TextView buttonPlans;
     TextView buttonAuthenticate;
@@ -47,7 +49,6 @@ public class MainActivity extends AppCompatActivity {
         //mAuth = FirebaseAuth.getInstance();
 
         toolbar = findViewById(R.id.toolbar);
-
         toolbar.setNavigationIcon(R.drawable.ic_search);
 
         buttonMenuOrders = findViewById(R.id.buttonMenuOrders);
@@ -55,6 +56,8 @@ public class MainActivity extends AppCompatActivity {
         buttonProfile = findViewById(R.id.buttonProfile);
         buttonProfileMyOrders = findViewById(R.id.buttonProfileMyOrders);
         buttonLogOut = findViewById(R.id.buttonLogOut);
+        buttonProfileAcceptedOrders = findViewById(R.id.buttonProfileAcceptedOrders);
+
         imageViewLogo = findViewById(R.id.imageViewLogo);
         constraintLayoutMainMenu = findViewById(R.id.ConstraintLayoutMenu);
         constraintLayoutProfileMenu = findViewById(R.id.ConstraintLayoutProfileMenu);
@@ -136,6 +139,16 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 fragment = new FragmentMyOrders();
+                getSupportFragmentManager().beginTransaction().replace(R.id.content_frame, fragment).commit();
+                upAllMenus();
+                showLogo();
+            }
+        });
+
+        buttonProfileAcceptedOrders.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                fragment = new FragmentAcceptedOrders();
                 getSupportFragmentManager().beginTransaction().replace(R.id.content_frame, fragment).commit();
                 upAllMenus();
                 showLogo();
