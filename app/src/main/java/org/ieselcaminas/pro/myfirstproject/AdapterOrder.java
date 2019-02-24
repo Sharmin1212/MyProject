@@ -21,11 +21,11 @@ import java.util.ArrayList;
 
 public class AdapterOrder extends RecyclerView.Adapter<AdapterOrder.MyHolder> {
 
-    Context context;
-    ArrayList<OrderItem> list;
-    DatabaseReference reference;
+    private Context context;
+    private ArrayList<OrderItem> list;
+    private DatabaseReference reference;
 
-    public AdapterOrder(Context c, ArrayList<OrderItem> l) {
+    AdapterOrder(Context c, ArrayList<OrderItem> l) {
         context = c;
         list = l;
 
@@ -44,21 +44,19 @@ public class AdapterOrder extends RecyclerView.Adapter<AdapterOrder.MyHolder> {
         holder.descr.setText(myList.getDescr());
 //        holder.img.setImageResource(myList.getImage());
 
+        reference = FirebaseDatabase.getInstance().getReference().child("orders");
+
         holder.btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(final View v) {
-                reference = FirebaseDatabase.getInstance().getReference().child("orders");
                 reference.addValueEventListener(new ValueEventListener() {
                     @Override
                     public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                         for (DataSnapshot dataSnapshot1 : dataSnapshot.getChildren()) {
                             OrderItem p = dataSnapshot1.getValue(OrderItem.class);
                             if (p.getOwner().equals(myList.getOwner()) && p.getTitle().equals(myList.getTitle())) {
-                                dataSnapshot1.child("accepted").getRef().setValue(Singleton.sharedInstance().getmAuth().getUid());
                                 Toast.makeText(v.getContext(), "Order accepted", Toast.LENGTH_SHORT).show();
-                                list.remove(position);
-                                notifyItemRemoved(position);
-                                notifyItemRangeChanged(position, list.size());
+                                dataSnapshot1.child("accepted").getRef().setValue(Singleton.sharedInstance().getmAuth().getUid());
                             }
                         }
                     }
@@ -68,6 +66,7 @@ public class AdapterOrder extends RecyclerView.Adapter<AdapterOrder.MyHolder> {
                         Toast.makeText(v.getContext(), "Something is wrong", Toast.LENGTH_SHORT).show();
                     }
                 });
+                removeAt(holder.getAdapterPosition());
             }
         });
     }
@@ -83,13 +82,32 @@ public class AdapterOrder extends RecyclerView.Adapter<AdapterOrder.MyHolder> {
         Button btn;
 
 
-        public MyHolder(View itemView) {
+        MyHolder(View itemView) {
             super(itemView);
             title = itemView.findViewById(R.id.textViewOrderTitle);
             user = itemView.findViewById(R.id.textViewUser);
             descr = itemView.findViewById(R.id.textViewOrderDescr);
             img = itemView.findViewById(R.id.imageViewProduct);
             btn = itemView.findViewById(R.id.buttonAcceptOrder);
+        }
+    }
+
+
+    private void removeAt(int position) {
+        if (position == list.size() - 1) { // if last element is deleted, no need to shift
+            list.remove(position);
+            notifyItemRemoved(position);
+        } else { // if the element deleted is not the last one
+            int shift=0; // not zero, shift=0 is the case where position == dataList.size() - 1, which is already checked above
+            while (true) {
+                try {
+                    list.remove(position-shift);
+                    notifyItemRemoved(position);
+                    break;
+                } catch (IndexOutOfBoundsException e) { // if fails, increment the shift and try again
+                    shift++;
+                }
+            }
         }
     }
 

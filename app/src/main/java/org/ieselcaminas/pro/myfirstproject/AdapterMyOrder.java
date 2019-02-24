@@ -21,9 +21,9 @@ import java.util.ArrayList;
 
 public class AdapterMyOrder extends RecyclerView.Adapter<AdapterMyOrder.MyHolder> {
 
-    Context context;
-    ArrayList<OrderItem> list;
-    DatabaseReference reference;
+    private Context context;
+    private ArrayList<OrderItem> list;
+    private DatabaseReference reference;
 
     public AdapterMyOrder(Context c, ArrayList<OrderItem> l) {
         context = c;
@@ -63,7 +63,6 @@ public class AdapterMyOrder extends RecyclerView.Adapter<AdapterMyOrder.MyHolder
                             if (p.getOwner().equals(myList.getOwner()) && p.getTitle().equals(myList.getTitle())) {
                                 dataSnapshot1.getRef().removeValue();
                                 Toast.makeText(v.getContext(), "Order completed", Toast.LENGTH_SHORT).show();
-                                removeAt(holder.getAdapterPosition());
                             }
                         }
                     }
@@ -73,6 +72,7 @@ public class AdapterMyOrder extends RecyclerView.Adapter<AdapterMyOrder.MyHolder
                         Toast.makeText(v.getContext(), "Something is wrong", Toast.LENGTH_SHORT).show();
                     }
                 });
+                removeAt(holder.getAdapterPosition());
             }
         });
 
@@ -86,7 +86,6 @@ public class AdapterMyOrder extends RecyclerView.Adapter<AdapterMyOrder.MyHolder
                             OrderItem p = dataSnapshot1.getValue(OrderItem.class);
                             if (p.getOwner().equals(myList.getOwner()) && p.getTitle().equals(myList.getTitle())) {
                                 Toast.makeText(v.getContext(), "Order removed", Toast.LENGTH_SHORT).show();
-                                removeAt(holder.getAdapterPosition());
                                 dataSnapshot1.getRef().removeValue();
                             }
                         }
@@ -97,6 +96,7 @@ public class AdapterMyOrder extends RecyclerView.Adapter<AdapterMyOrder.MyHolder
                         Toast.makeText(v.getContext(), "Something is wrong", Toast.LENGTH_SHORT).show();
                     }
                 });
+                removeAt(holder.getAdapterPosition());
             }
         });
     }
@@ -112,7 +112,7 @@ public class AdapterMyOrder extends RecyclerView.Adapter<AdapterMyOrder.MyHolder
         Button btnAccept, btnCancel;
 
 
-        public MyHolder(View itemView) {
+        MyHolder(View itemView) {
             super(itemView);
             title = itemView.findViewById(R.id.textViewOrderTitle);
             user = itemView.findViewById(R.id.textViewUser);
@@ -123,10 +123,22 @@ public class AdapterMyOrder extends RecyclerView.Adapter<AdapterMyOrder.MyHolder
         }
     }
 
-    public void removeAt(int position) {
-        list.remove(position);
-        notifyItemRemoved(position);
-        notifyItemRangeChanged(position, list.size());
+    private void removeAt(int position) {
+        if (position == list.size() - 1) { // if last element is deleted, no need to shift
+            list.remove(position);
+            notifyItemRemoved(position);
+        } else { // if the element deleted is not the last one
+            int shift=0; // not zero, shift=0 is the case where position == dataList.size() - 1, which is already checked above
+            while (true) {
+                try {
+                    list.remove(position-shift);
+                    notifyItemRemoved(position);
+                    break;
+                } catch (IndexOutOfBoundsException e) { // if fails, increment the shift and try again
+                    shift++;
+                }
+            }
+        }
     }
 
 }

@@ -21,16 +21,13 @@ import java.util.ArrayList;
 
 public class AdapterAcceptedOrder extends RecyclerView.Adapter<AdapterAcceptedOrder.MyHolder> {
 
-    Context context;
-    ArrayList<OrderItem> list;
-    DatabaseReference reference;
-    String typeAdapter;
+    private Context context;
+    private ArrayList<OrderItem> list;
+    private DatabaseReference reference;
 
-    public AdapterAcceptedOrder(Context c, ArrayList<OrderItem> l, String type) {
+    public AdapterAcceptedOrder(Context c, ArrayList<OrderItem> l) {
         context = c;
         list = l;
-        typeAdapter = type;
-
     }
 
     @Override
@@ -66,9 +63,8 @@ public class AdapterAcceptedOrder extends RecyclerView.Adapter<AdapterAcceptedOr
                         for (DataSnapshot dataSnapshot1 : dataSnapshot.getChildren()) {
                             OrderItem p = dataSnapshot1.getValue(OrderItem.class);
                             if (p.getOwner().equals(myList.getOwner()) && p.getTitle().equals(myList.getTitle())) {
-                                dataSnapshot1.child("accepted").getRef().setValue("no");
                                 Toast.makeText(v.getContext(), "Canceled delivery", Toast.LENGTH_SHORT).show();
-                                removeAt(holder.getAdapterPosition());
+                                dataSnapshot1.child("accepted").getRef().setValue("no");
                             }
                         }
                     }
@@ -78,6 +74,7 @@ public class AdapterAcceptedOrder extends RecyclerView.Adapter<AdapterAcceptedOr
                         Toast.makeText(v.getContext(), "Something is wrong", Toast.LENGTH_SHORT).show();
                     }
                 });
+                removeAt(holder.getAdapterPosition());
             }
         });
     }
@@ -93,7 +90,7 @@ public class AdapterAcceptedOrder extends RecyclerView.Adapter<AdapterAcceptedOr
         Button btnAccept, btnCancel;
 
 
-        public MyHolder(View itemView) {
+        MyHolder(View itemView) {
             super(itemView);
             title = itemView.findViewById(R.id.textViewOrderTitle);
             user = itemView.findViewById(R.id.textViewUser);
@@ -104,10 +101,22 @@ public class AdapterAcceptedOrder extends RecyclerView.Adapter<AdapterAcceptedOr
         }
     }
 
-    public void removeAt(int position) {
-        list.remove(position);
-        notifyItemRemoved(position);
-        notifyItemRangeChanged(position, list.size());
+    private void removeAt(int position) {
+        if (position == list.size() - 1) {
+            list.remove(position);
+            notifyItemRemoved(position);
+        } else {
+            int shift = 0;
+            while (true) {
+                try {
+                    list.remove(position - shift);
+                    notifyItemRemoved(position);
+                    break;
+                } catch (IndexOutOfBoundsException e) {
+                    shift++;
+                }
+            }
+        }
     }
 
 }

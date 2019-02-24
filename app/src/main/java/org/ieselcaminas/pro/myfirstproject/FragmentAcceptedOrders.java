@@ -24,7 +24,7 @@ public class FragmentAcceptedOrders extends Fragment {
     AdapterAcceptedOrder adapter;
 
     RecyclerView recView;
-    ArrayList<OrderItem> list;
+    ArrayList<OrderItem> acceptedList;
     DatabaseReference reference;
 
     public FragmentAcceptedOrders() {
@@ -46,15 +46,15 @@ public class FragmentAcceptedOrders extends Fragment {
         reference.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                list = new ArrayList<>();
+                acceptedList = new ArrayList<>();
                 for (DataSnapshot dataSnapshot1 : dataSnapshot.getChildren()) {
                     OrderItem p = dataSnapshot1.getValue(OrderItem.class);
                     //assert p != null;
                     if (p.getAccepted().equals(Singleton.sharedInstance().getmAuth().getUid())) {
-                        list.add(p);
+                        acceptedList.add(p);
                     }
                 }
-                adapter = new AdapterAcceptedOrder(thisView.getContext(), list, "accepted");
+                adapter = new AdapterAcceptedOrder(thisView.getContext(), acceptedList);
                 recView.setAdapter(adapter);
             }
 

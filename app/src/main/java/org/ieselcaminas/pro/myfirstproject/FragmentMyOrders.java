@@ -35,7 +35,7 @@ public class FragmentMyOrders extends Fragment {
     AdapterMyOrder adapter;
 
     RecyclerView recView;
-    ArrayList<OrderItem> list;
+    ArrayList<OrderItem> myList;
     DatabaseReference reference;
 
     public FragmentMyOrders() {
@@ -58,16 +58,16 @@ public class FragmentMyOrders extends Fragment {
         reference.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                list = new ArrayList<>();
+                myList = new ArrayList<>();
                 for (DataSnapshot dataSnapshot1 : dataSnapshot.getChildren()) {
                     OrderItem p = dataSnapshot1.getValue(OrderItem.class);
                     if (p.getOwner().equals(Singleton.sharedInstance().getmAuth().getUid())) {
-                        list.add(p);
+                        myList.add(p);
 
                     }
 
                 }
-                adapter = new AdapterMyOrder(thisView.getContext(), list);
+                adapter = new AdapterMyOrder(thisView.getContext(), myList);
                 recView.setAdapter(adapter);
             }
 
