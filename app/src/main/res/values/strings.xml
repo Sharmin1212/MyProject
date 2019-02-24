@@ -40,4 +40,8 @@
     <string name="registerLogIn">REGISTER / LOG IN</string>
     <string name="cancel">Cancel</string>
     <string name="delete">Delete</string>
+    <string name="country">Country</string>
+    <string name="city">City</string>
+    <string name="street">Street</string>
+    <string name="score">Score</string>
 </resources>

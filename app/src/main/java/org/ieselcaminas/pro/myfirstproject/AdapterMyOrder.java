@@ -1,13 +1,22 @@
 package org.ieselcaminas.pro.myfirstproject;
 
+import android.app.AlertDialog;
+import android.app.Dialog;
 import android.content.Context;
+import android.content.DialogInterface;
+import android.graphics.Color;
+import android.graphics.drawable.ColorDrawable;
 import android.support.annotation.NonNull;
+import android.support.v4.content.ContextCompat;
+import android.support.v4.content.res.ResourcesCompat;
 import android.support.v7.widget.RecyclerView;
+import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -16,6 +25,7 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
+import com.google.firebase.database.collection.LLRBNode;
 
 import java.util.ArrayList;
 
@@ -63,6 +73,59 @@ public class AdapterMyOrder extends RecyclerView.Adapter<AdapterMyOrder.MyHolder
                             if (p.getOwner().equals(myList.getOwner()) && p.getTitle().equals(myList.getTitle())) {
                                 dataSnapshot1.getRef().removeValue();
                                 Toast.makeText(v.getContext(), "Order completed", Toast.LENGTH_SHORT).show();
+
+                                AlertDialog alertDialog = new AlertDialog.Builder(context).create();
+
+                                // Set Custom Title
+                                TextView title = new TextView(context);
+                                // Title Properties
+                                title.setText("Rate!");
+                                title.setPadding(10, 20, 10, 10);   // Set Position
+                                title.setGravity(Gravity.CENTER);
+                                title.setTextColor(Color.BLACK);
+                                title.setTextSize(20);
+                                alertDialog.setCustomTitle(title);
+
+                                // Set Message
+                                TextView msg = new TextView(context);
+                                msg.setText("Do you want to rate the user?");
+                                msg.setGravity(Gravity.CENTER);
+                                msg.setTextColor(Color.BLACK);
+                                alertDialog.setView(msg);
+
+
+                                alertDialog.setButton(AlertDialog.BUTTON_NEUTRAL, "Cancel", new DialogInterface.OnClickListener() {
+                                    public void onClick(DialogInterface dialog, int which) {
+                                        dialog.dismiss();
+                                    }
+                                });
+
+
+                                alertDialog.setButton(AlertDialog.BUTTON_NEGATIVE, "OK", new DialogInterface.OnClickListener() {
+                                    public void onClick(DialogInterface dialog, int which) {
+                                        dialog.dismiss();
+                                    }
+                                });
+
+
+                                new Dialog(context.getApplicationContext());
+                                alertDialog.show();
+
+
+                                final Button bOk = alertDialog.getButton(AlertDialog.BUTTON_NEGATIVE);
+                                LinearLayout.LayoutParams neutralBtnLP = (LinearLayout.LayoutParams) bOk.getLayoutParams();
+                                neutralBtnLP.bottomMargin = 20;
+                                neutralBtnLP.gravity = Gravity.FILL_HORIZONTAL;
+                                bOk.setTextColor(Color.WHITE);
+                                bOk.setBackgroundColor(context.getResources().getColor(R.color.colorPrimaryDark));
+                                bOk.setLayoutParams(neutralBtnLP);
+
+                                final Button bCancel = alertDialog.getButton(AlertDialog.BUTTON_NEUTRAL);
+                                LinearLayout.LayoutParams negBtnLP = (LinearLayout.LayoutParams) bOk.getLayoutParams();
+                                negBtnLP.gravity = Gravity.FILL_HORIZONTAL;
+                                bCancel.setTextColor(Color.WHITE);
+                                bCancel.setBackgroundColor(context.getResources().getColor(R.color.colorPrimaryDark));
+                                bCancel.setLayoutParams(negBtnLP);
                             }
                         }
                     }
@@ -124,17 +187,17 @@ public class AdapterMyOrder extends RecyclerView.Adapter<AdapterMyOrder.MyHolder
     }
 
     private void removeAt(int position) {
-        if (position == list.size() - 1) { // if last element is deleted, no need to shift
+        if (position == list.size() - 1) {
             list.remove(position);
             notifyItemRemoved(position);
-        } else { // if the element deleted is not the last one
-            int shift=0; // not zero, shift=0 is the case where position == dataList.size() - 1, which is already checked above
+        } else {
+            int shift = 0;
             while (true) {
                 try {
-                    list.remove(position-shift);
+                    list.remove(position - shift);
                     notifyItemRemoved(position);
                     break;
-                } catch (IndexOutOfBoundsException e) { // if fails, increment the shift and try again
+                } catch (IndexOutOfBoundsException e) {
                     shift++;
                 }
             }

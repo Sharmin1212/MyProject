@@ -64,6 +64,13 @@ public class FragmentProfile extends Fragment {
         editTextCity = thisView.findViewById(R.id.editTextCity);
         editTextAddress = thisView.findViewById(R.id.editTextAddress);
 
+        editTextUsername.setEnabled(false);
+        editTextAge.setEnabled(false);
+        editTextCountry.setEnabled(false);
+        editTextCity.setEnabled(false);
+        editTextAddress.setEnabled(false);
+
+
         textViewDeliveryRating = thisView.findViewById(R.id.textViewDeliveryRating2);
         textViewConsumerRating = thisView.findViewById(R.id.textViewConsumerRating2);
 
@@ -147,15 +154,15 @@ public class FragmentProfile extends Fragment {
         editing = true;
 
         editTextUsername.setBackgroundDrawable(originalEditText);
-        editTextUsername.setFocusable(true);
+        editTextUsername.setEnabled(true);
         editTextAge.setBackgroundDrawable(originalEditText);
-        editTextAge.setFocusable(true);
+        editTextAge.setEnabled(true);
         editTextCountry.setBackgroundDrawable(originalEditText);
-        editTextCountry.setFocusable(true);
+        editTextCountry.setEnabled(true);
         editTextCity.setBackgroundDrawable(originalEditText);
-        editTextCity.setFocusable(true);
+        editTextCity.setEnabled(true);
         editTextAddress.setBackgroundDrawable(originalEditText);
-        editTextAddress.setFocusable(true);
+        editTextAddress.setEnabled(true);
 
         buttonEditSave.setText(getString(R.string.save));
     }
@@ -163,15 +170,19 @@ public class FragmentProfile extends Fragment {
     private void setNotEditable() {
         editing = false;
         editTextUsername.setBackgroundColor(Color.TRANSPARENT);
-        editTextUsername.setFocusable(false);
+        editTextUsername.setEnabled(false);
         editTextAge.setBackgroundColor(Color.TRANSPARENT);
-        editTextAge.setFocusable(false);
+        editTextAge.setEnabled(false);
+        editTextAge.setTextColor(Color.GRAY);
         editTextCountry.setBackgroundColor(Color.TRANSPARENT);
-        editTextCountry.setFocusable(false);
+        editTextCountry.setEnabled(false);
+        editTextCountry.setTextColor(Color.GRAY);
         editTextCity.setBackgroundColor(Color.TRANSPARENT);
-        editTextCity.setFocusable(false);
+        editTextCity.setEnabled(false);
+        editTextCity.setTextColor(Color.GRAY);
         editTextAddress.setBackgroundColor(Color.TRANSPARENT);
-        editTextAddress.setFocusable(false);
+        editTextAddress.setEnabled(false);
+        editTextAddress.setTextColor(Color.GRAY);
 
         buttonEditSave.setText(getString(R.string.edit));
     }
