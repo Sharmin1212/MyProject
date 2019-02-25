@@ -32,7 +32,7 @@
     <string name="consumerSub">Consumer Subscription</string>
     <string name="noAdsSub">No Ads Subscription</string>
     <string name="deliveryDescr">- No ads\n- Deliver more than 3 orders per day\n\n20$/year</string>
-    <string name="consumerDescr">- No ads\n- Make more than 3 orders per day\n\n20$/year</string>
+    <string name="consumerDescr">- No ads\n- Make more than 3 orders per day\n- More importance for your orders\n\n20$/year</string>
     <string name="noAdsDescription">- No ads\n\n5$/year</string>
     <string name="logInFirst">You have to authenticate first</string>
     <string name="acceptedOrders">To deliver</string>

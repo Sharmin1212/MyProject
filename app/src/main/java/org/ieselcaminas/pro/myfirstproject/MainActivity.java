@@ -228,7 +228,7 @@ public class MainActivity extends AppCompatActivity {
             case R.id.action_menu:
 
                 if (mainMenuDown) {
-                    upAnimation(constraintLayoutMainMenu, toolbar.getHeight(), 0, 1.0f, 0.0f);
+                    upAnimation(constraintLayoutMainMenu, toolbar.getHeight());
                     mainMenuDown = false;
                 } else {
                     downAnimation(constraintLayoutMainMenu, 0, toolbar.getHeight(), 0.0f, 1.0f);
@@ -236,7 +236,7 @@ public class MainActivity extends AppCompatActivity {
                 }
 
                 if (profileMenuDown) {
-                    upAnimation(constraintLayoutProfileMenu, toolbar.getHeight(), 0, 1.0f, 0.0f);
+                    upAnimation(constraintLayoutProfileMenu, toolbar.getHeight());
                     profileMenuDown = false;
                 }
 
@@ -246,7 +246,7 @@ public class MainActivity extends AppCompatActivity {
                     goToAuthentication();
                 } else {
                     if (profileMenuDown) {
-                        upAnimation(constraintLayoutProfileMenu, toolbar.getHeight(), 0, 1.0f, 0.0f);
+                        upAnimation(constraintLayoutProfileMenu, toolbar.getHeight());
                         profileMenuDown = false;
                     } else {
                         downAnimation(constraintLayoutProfileMenu, 0, toolbar.getHeight(), 0.0f, 1.0f);
@@ -254,7 +254,7 @@ public class MainActivity extends AppCompatActivity {
                     }
 
                     if (mainMenuDown) {
-                        upAnimation(constraintLayoutMainMenu, toolbar.getHeight(), 0, 1.0f, 0.0f);
+                        upAnimation(constraintLayoutMainMenu, toolbar.getHeight());
                         mainMenuDown = false;
                     }
                 }
@@ -276,17 +276,17 @@ public class MainActivity extends AppCompatActivity {
         constraint.animate().alpha(v2).start();
     }
 
-    private void upAnimation(ConstraintLayout constraint, int i2, int i3, float v, float v2) {
-        downAnimation(constraint, i2, i3, v, v2);
+    private void upAnimation(ConstraintLayout constraint, int i2) {
+        downAnimation(constraint, i2, 0, 1.0f, 0.0f);
     }
 
 
     private void upAllMenus() {
         if (mainMenuDown) {
-            upAnimation(constraintLayoutMainMenu, toolbar.getHeight(), 0, 1.0f, 0.0f);
+            upAnimation(constraintLayoutMainMenu, toolbar.getHeight());
             mainMenuDown = false;
         } else if (profileMenuDown) {
-            upAnimation(constraintLayoutProfileMenu, toolbar.getHeight(), 0, 1.0f, 0.0f);
+            upAnimation(constraintLayoutProfileMenu, toolbar.getHeight());
             profileMenuDown = false;
         }
     }
