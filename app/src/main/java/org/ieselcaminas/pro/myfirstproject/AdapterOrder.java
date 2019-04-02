@@ -49,7 +49,7 @@ public class AdapterOrder extends RecyclerView.Adapter<AdapterOrder.MyHolder> {
         holder.btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(final View v) {
-                reference.addValueEventListener(new ValueEventListener() {
+                reference.addListenerForSingleValueEvent(new ValueEventListener() {
                     @Override
                     public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                         for (DataSnapshot dataSnapshot1 : dataSnapshot.getChildren()) {
@@ -66,6 +66,7 @@ public class AdapterOrder extends RecyclerView.Adapter<AdapterOrder.MyHolder> {
                         Toast.makeText(v.getContext(), "Something is wrong", Toast.LENGTH_SHORT).show();
                     }
                 });
+
                 removeAt(holder.getAdapterPosition());
             }
         });
@@ -98,10 +99,10 @@ public class AdapterOrder extends RecyclerView.Adapter<AdapterOrder.MyHolder> {
             list.remove(position);
             notifyItemRemoved(position);
         } else { // if the element deleted is not the last one
-            int shift=0; // not zero, shift=0 is the case where position == dataList.size() - 1, which is already checked above
+            int shift = 0; // not zero, shift=0 is the case where position == dataList.size() - 1, which is already checked above
             while (true) {
                 try {
-                    list.remove(position-shift);
+                    list.remove(position - shift);
                     notifyItemRemoved(position);
                     break;
                 } catch (IndexOutOfBoundsException e) { // if fails, increment the shift and try again

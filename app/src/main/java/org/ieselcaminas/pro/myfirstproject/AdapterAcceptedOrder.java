@@ -57,7 +57,7 @@ public class AdapterAcceptedOrder extends RecyclerView.Adapter<AdapterAcceptedOr
         holder.btnCancel.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(final View v) {
-                reference.addValueEventListener(new ValueEventListener() {
+                reference.addListenerForSingleValueEvent(new ValueEventListener() {
                     @Override
                     public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                         for (DataSnapshot dataSnapshot1 : dataSnapshot.getChildren()) {
@@ -74,6 +74,7 @@ public class AdapterAcceptedOrder extends RecyclerView.Adapter<AdapterAcceptedOr
                         Toast.makeText(v.getContext(), "Something is wrong", Toast.LENGTH_SHORT).show();
                     }
                 });
+
                 removeAt(holder.getAdapterPosition());
             }
         });

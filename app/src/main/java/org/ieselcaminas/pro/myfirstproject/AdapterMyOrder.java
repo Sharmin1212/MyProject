@@ -65,7 +65,7 @@ public class AdapterMyOrder extends RecyclerView.Adapter<AdapterMyOrder.MyHolder
         holder.btnAccept.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(final View v) {
-                reference.addValueEventListener(new ValueEventListener() {
+                reference.addListenerForSingleValueEvent(new ValueEventListener() {
                     @Override
                     public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                         for (DataSnapshot dataSnapshot1 : dataSnapshot.getChildren()) {
@@ -142,7 +142,7 @@ public class AdapterMyOrder extends RecyclerView.Adapter<AdapterMyOrder.MyHolder
         holder.btnCancel.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(final View v) {
-                reference.addValueEventListener(new ValueEventListener() {
+                reference.addListenerForSingleValueEvent(new ValueEventListener() {
                     @Override
                     public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                         for (DataSnapshot dataSnapshot1 : dataSnapshot.getChildren()) {
